@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 19:12:32 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/24 20:05:39 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <42sh.h>
 #include <stdio.h>
 
-int		parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int     parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
 {
-	t_cmds	*tmp;
+	t_cmds  *tmp;
 
 	tmp = (*current_node);
 	(*current_node) = new_cmd();
@@ -33,8 +33,8 @@ int		parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cm
 	(*current_node) = (*current_node)->right;
 	*is_new_cmd = TRUE;
 	if (!*(lex + 1) || !ft_strcmp(*(lex + 1), "&&")
-		|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
-		|| !ft_strcmp(*(lex + 1), ";"))
+			|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
+			|| !ft_strcmp(*(lex + 1), ";"))
 	{
 		ft_putstr_fd("42sh: parse error near '|'\n", 2);
 		free_all_trees(cmds);
@@ -43,7 +43,7 @@ int		parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cm
 	return (0);
 }
 
-int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int     parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
 {
 	(*current_node)->right = new_cmd();
 	(*current_node)->right->father = (*current_node);
@@ -51,8 +51,8 @@ int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds
 	(*current_node) = (*current_node)->right;
 	*is_new_cmd = TRUE;
 	if (!*(lex + 1) || !ft_strcmp(*(lex + 1), "&&")
-		|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
-		|| !ft_strcmp(*(lex + 1), ";"))
+			|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
+			|| !ft_strcmp(*(lex + 1), ";"))
 	{
 		ft_putstr_fd("42sh: parse error near '||'\n", 2);
 		free_all_trees(cmds);
@@ -61,7 +61,7 @@ int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds
 	return (0);
 }
 
-int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int     parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
 {
 	(*current_node)->right = new_cmd();
 	(*current_node)->right->father = (*current_node);
@@ -69,8 +69,8 @@ int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmd
 	(*current_node) = (*current_node)->right;
 	*is_new_cmd = TRUE;
 	if (!*(lex + 1) || !ft_strcmp(*(lex + 1), "&&")
-		|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
-		|| !ft_strcmp(*(lex + 1), ";"))
+			|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
+			|| !ft_strcmp(*(lex + 1), ";"))
 	{
 		ft_putstr_fd("42sh: parse error near '&&'\n", 2);
 		free_all_trees(cmds);
@@ -79,13 +79,13 @@ int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmd
 	return (0);
 }
 
-int		parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
+int     parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 {
 	lex++;
 	if (!*(lex) || !ft_strcmp(*(lex), "&&")
-		|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
-		|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
-		|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
+			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
+			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
+			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
 	{
 		ft_putstr_fd("42sh: parse error near '<'\n", 2);
 		free_all_trees(cmds);
@@ -96,13 +96,13 @@ int		parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 	return (0);
 }
 
-int		parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
+int     parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 {
 	lex++;
 	if (!*(lex) || !ft_strcmp(*(lex), "&&")
-		|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
-		|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
-		|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
+			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
+			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
+			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
 	{
 		ft_putstr_fd("42sh: parse error near '>'\n", 2);
 		free_all_trees(cmds);
@@ -113,7 +113,7 @@ int		parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 	return (0);
 }
 
-void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_new_cmds, int *is_new_cmd)
+void    parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_new_cmds, int *is_new_cmd)
 {
 	if (*is_new_cmds)
 	{
@@ -125,7 +125,7 @@ void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_new_
 	}
 }
 
-void	parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
+void    parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 {
 	if (*is_new_cmd)
 	{
@@ -141,8 +141,8 @@ t_cmds  **parser(char **lex)
 	t_cmds  **cmds;
 	int     is_new_cmds;
 	int     is_new_cmd;
-	t_cmds	**current_tree;
-	t_cmds	*current_node;
+	t_cmds  **current_tree;
+	t_cmds  *current_node;
 
 	is_new_cmds = FALSE;
 	is_new_cmd = TRUE;
