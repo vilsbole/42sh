@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <libft.h>
 #include <42sh.h>
+#include "lexer.h"
 
 static void	ft_main_debug(t_datas *datas, char **av)
 {
@@ -35,6 +36,7 @@ static void	ft_parser_load(t_datas *datas)
 	char		**tmp;
 
 	tmp = ft_cmdsplit(datas->prompt.buffer);
+	//tmp = lx_lexer(datas->prompt.buffer);
 	get_env()->cmds = parser(tmp);
 	ft_arrdel(&tmp);
 	if (!get_env()->cmds)

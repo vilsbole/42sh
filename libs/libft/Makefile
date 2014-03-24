@@ -10,7 +10,7 @@
 #                                                                              #
 #******************************************************************************#
 
-NAME = libft
+NAME = libft.a
 
 FILES = ft_atoi ft_itoa ft_intlen ft_tolower ft_toupper ft_bzero ft_fibonacci \
 		ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_isspace \

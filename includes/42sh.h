@@ -62,6 +62,9 @@
 # define FLAG_ISCOLOR(fl)		((fl & FLAG_COLOR) != 0)
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
 
+# include <curses.h>
+# include <term.h>
+
 typedef struct      s_cmds
 {
 	int				type;
