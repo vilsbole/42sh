@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 22:42:00 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 18:10:56 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/24 20:07:25 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_find_blt(t_datas *datas, t_fblt **fblt, char **cmd, char **tmp)
 		}
 		i++;
 	}
-	if (*tmp != cmd[1])
+	if (*tmp != cmd[0])
 		ft_strdel(tmp);
 	return (0);
 }
@@ -47,12 +47,12 @@ int			implemented_function(t_datas *datas, char **cmd)
 		&ft_set, &ft_unset, &ft_color, NULL
 	};
 
-	tmp = ft_strtolower(ft_strdup(cmd[1]));
+	tmp = ft_strtolower(ft_strdup(cmd[0]));
 	if (tmp == NULL)
-		tmp = ft_strtolower(cmd[1]);
+		tmp = ft_strtolower(cmd[0]);
 	if (ft_strcmp(tmp, "exit") == 0)
 	{
-		if (tmp != cmd[1])
+		if (tmp != cmd[0])
 			ft_strdel(&tmp);
 		return (-1);
 	}

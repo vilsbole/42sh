@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/18 16:20:05 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 16:50:54 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/24 20:07:44 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_signal_prompt(int sig)
 		ft_move_end(datas, line, FTSH_KEY_END);
 	if (datas->prompt.line != NULL)
 	{
-		while (datas->prompt.line != NULL)
+		while (datas->prompt.line->prev != NULL)
 			datas->prompt.line = line->prev;
 		ft_bzero((datas->prompt.line)->buf, FTSH_MAXLEN_LINE);
 		(datas->prompt.line)->i = -1;
