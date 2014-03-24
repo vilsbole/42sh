@@ -6,15 +6,11 @@
 #    By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/22 15:37:16 by gchateau          #+#    #+#              #
-#    Updated: 2014/01/25 17:51:35 by gchateau         ###   ########.fr        #
+#    Updated: 2014/03/24 20:25:02 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = libft.a
-
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -O3 -pedantic
-LFLAGS = -I includes/
+NAME = libft
 
 FILES = ft_atoi ft_itoa ft_intlen ft_tolower ft_toupper ft_bzero ft_fibonacci \
 		ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_isspace \
@@ -41,23 +37,33 @@ FILES = ft_atoi ft_itoa ft_intlen ft_tolower ft_toupper ft_bzero ft_fibonacci \
 		ft_arridel ft_arriter ft_arriteri \
 		ft_realpath ft_implode ft_explode get_next_line
 
+GRN = "\x1b[32;01m"
+YLLW = "\x1b[33;01m"
+NCLR = "\x1b[0m"
+RM = rm -f
 SRC = $(addsuffix .c, $(FILES))
 OBJ = $(SRC:.c=.o)
+LIBNAME = $(NAME).a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
+$(NAME) : $(SRC)
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[all]$(NCLR) : Compilation of $(NAME)
+	@gcc $(FLAGS) -I includes -c $(SRC)
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[all]$(NCLR) : Creation of Library $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
-.c.o:
-	$(CC) -o $@ $(CFLAGS) $(LFLAGS) -c $<
+clean :
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[clean]$(NCLR) : Deleting .o files
+	@rm -f $(OBJ)
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[clean]$(NCLR) : Deleting done !
 
-clean:
-	@rm -rf $(OBJ)
+fclean : clean
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[fclean]$(NCLR) : Deleting $(NAME)
+	@rm -f $(NAME)
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[fclean]$(NCLR) : Deleting done !
 
-fclean: clean
-	@rm -rf $(NAME)
+re : fclean all
 
-re: fclean all
-
-.PHONY: all, clean, fclean, re
+.PHONY: clean fclean re all

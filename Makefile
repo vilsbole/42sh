@@ -6,15 +6,14 @@
 #    By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/20 16:15:13 by gchateau          #+#    #+#              #
-#    Updated: 2014/03/24 19:32:38 by gchateau         ###   ########.fr        #
+#    Updated: 2014/03/24 20:13:31 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = ftsh
+NAME = 42sh
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -O3 -pedantic -g
-CINCS = -I libft/includes -I ./includes
 CLIBS = -L libft/ -lft -ltermcap
 
 LIB = libft/libft.a
@@ -43,32 +42,48 @@ FILES = main ft_findexe ft_error ft_signal ft_response \
 		ft_history_prev ft_history_next \
 		ft_pipe parser execution cmds t_env parser_utils ft_redir
 
+
+LIBFT_NAME = libft.a
+
+LIBFT_DIR = ./libft
+LIB = $(LIBFT_DIR)/$(LIBFT_NAME) $(CLIBS)
+HPATH = -Iincludes -I$(LIBFT_DIR)/includes
+CFLAGS = gcc -Wall -Wextra -Werror -O0 -g
+SRCPATH = ./src/
+HEADER = includes/
 SRC = $(addprefix $(SRCPATH), $(addsuffix .c, $(FILES)))
 OBJ = $(SRC:.c=.o)
-FLAG = 0
+GRN = "\x1b[32;01m"
+YLLW = "\x1b[33;01m"
+NOCOLOR = "\x1b[0m"
 
-.PHONY: all, clean, fclean, re, .msgcompile
+OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+.PHONY: all, clean, fclean, re, compile_lib
 
-$(LIB):
-	@make -C libft/
+all: compile_lib $(NAME)
 
-$(NAME): $(OBJ) $(LIB)
-	$(CC) -o $@ $(OBJ) $(CFLAGS) $(CINCS) $(CLIBS)
+compile_lib:
+	@make -C $(LIBFT_DIR)
 
-%.o: %.c includes
-	$(CC) -o $@ $(CFLAGS) $(CINCS) -c $<
+$(NAME): $(SRC) $(HEADER)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[all]$(NOCOLOR) : Compilation of $(NAME)
+	@$(CFLAGS) $(HPATH) $(LIB) $(GRAPH_LIB) $(SRC) -o $(NAME)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[all]$(NOCOLOR) : Compilation done !
 
 clean:
-	@echo "[\033[1;33mCLEANING FTSH\033[0m]"
-	@make -C libft/ clean
-	@rm -rf $(OBJ)
+	@make clean -C $(LIBFT_DIR)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR) : Deleting .o files
+	@rm -f $(OBJ)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR) : Deleting done !
 
 fclean:
-	@echo "[\033[1;31mREMOVING FTSH\033[0m]"
-	@make -C libft/ fclean
-	@rm -rf $(OBJ)
-	@rm -rf $(NAME)
+	@make fclean -C $(LIBFT_DIR)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR) : Deleting .o files
+	@rm -f $(OBJ)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR) : Deleting done !
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[fclean]$(NOCOLOR) : Deleting $(NAME)
+	@rm -f $(NAME)
+	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[fclean]$(NOCOLOR) : Deleting done !
 
-re: fclean all
+re: fclean all compile_lib
