@@ -26,18 +26,32 @@ CC = gcc
 
 AR = ar rc
 
-SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memchr.c \
-	  ft_memcmp.c ft_strlen.c ft_strcpy.c ft_strdup.c ft_strcat.c \
-	  ft_strncpy.c ft_strncat.c ft_strchr.c ft_strrchr.c ft_strstr.c \
-	  ft_strnstr.c ft_strcmp.c ft_strncmp.c ft_isdigit.c ft_atoi.c \
-	  ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isprint.c ft_toupper.c \
-	  ft_tolower.c ft_memmove.c ft_strlcat.c ft_memalloc.c ft_memdel.c \
-	  ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c ft_striteri.c \
-	  ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strsub.c \
-	  ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c \
-	  ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c \
-	  ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
-	  ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_strsubsplit.c
+FILES = ft_atoi ft_itoa ft_intlen ft_tolower ft_toupper ft_bzero ft_fibonacci \
+		ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_isspace \
+		ft_isupper ft_islower \
+		ft_memchr ft_memcmp ft_memcpy ft_memccpy ft_memmove ft_memset \
+		ft_memalloc ft_memdel \
+		ft_putchar ft_putchar_fd ft_putendl ft_putendl_fd \
+		ft_putnbr ft_putnbr_fd ft_putstr ft_putstr_fd \
+		ft_strcat ft_strchr ft_strcmp ft_strccmp ft_strcpy ft_strdup \
+		ft_strichr ft_strrichr ft_strlcat ft_strlen ft_strncat ft_strncmp \
+		ft_strncpy ft_strnstr ft_strrchr ft_strstr ft_strclr ft_strsub \
+		ft_strequ ft_strnequ ft_strnew ft_strdel ft_strfjoin ft_strjoin \
+		ft_strtrim ft_strsplit ft_striter ft_striteri ft_strmap ft_strmapi \
+		ft_strtolower ft_strtoupper \
+		ft_lstnew ft_lstadd ft_lstadd_end ft_lstiter ft_lstdelone ft_lstdel \
+		ft_lstlen ft_lstmap \
+		ft_clstadd_after ft_clstadd_before ft_clstdel ft_clstdelone \
+		ft_clstiter ft_clstlen ft_clstnew \
+		ft_dlstadd_after ft_dlstadd_before ft_dlstadd_end ft_dlstadd_first \
+		ft_dlstdel ft_dlstdel_fwd ft_dlstdel_rwd ft_dlstdelone \
+		ft_dlstiter ft_dlstiter_fwd ft_dlstiter_rwd ft_dlstnew \
+		ft_dlstlen ft_dlstlen_fwd ft_dlstlen_rwd \
+		ft_arrsize ft_arrnew ft_arradd ft_arrdup ft_arrdel ft_arrfree \
+		ft_arridel ft_arriter ft_arriteri \
+		ft_realpath ft_implode ft_explode get_next_line
+
+SRC = $(addsuffix .c, $(FILES))
 
 RM = rm -f
 

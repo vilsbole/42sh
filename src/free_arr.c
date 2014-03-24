@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/23 17:23:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/27 18:34:32 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/24 14:01:18 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_arr(char ***arr)
 	int	i;
 
 	i = 0;
-	while ((*arr)[i])
+	while (arr && *arr && (*arr)[i])
 	{
 		ft_strdel(&(*arr)[i]);
 		i++;

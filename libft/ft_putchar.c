@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/30 15:52:46 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:39:20 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/20 12:01:25 by gchateau          #+#    #+#             */
+/*   Updated: 2013/11/30 13:46:05 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 void	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	if (c)
+		ft_putchar_fd(c, 1);
 }

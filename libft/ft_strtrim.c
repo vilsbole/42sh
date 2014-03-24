@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/29 22:26:43 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:54:55 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/26 17:12:46 by gchateau          #+#    #+#             */
+/*   Updated: 2014/01/18 17:42:18 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+char	*ft_strtrim(char *s)
 {
-	size_t	start;
-	size_t	end;
-	size_t	len_s;
+	size_t	i;
+	size_t	j;
+	int		space;
 
-	start = 0;
-	end = 0;
-	if (s)
-		len_s = ft_strlen(s);
-	while (s && *(s + start) && (*(s + start) == ' ' || *(s + start) == '\n'\
-				|| *(s + start) == '\t'))
-		start++;
-	while (s && end < len_s && (*(s + len_s - 1 - end) == ' '\
-				|| *(s + len_s - 1 - end) == '\n'\
-				|| *(s + len_s - 1 - end) == '\t'))
-		end++;
-	if ((int) (len_s - end - start) < 0)
-		return (ft_strsub(s, start, 0));
-	return (ft_strsub(s, start, len_s - end - start));
+	if (!s)
+		return (NULL);
+	i = 0;
+	j = 0;
+	space = 1;
+	while (s[i] != '\0')
+	{
+		if (ft_isspace(s[i]) == 0)
+		{
+			if (j > 0 && space == 1)
+				s[j++] = ' ';
+			space = 0;
+			s[j] = s[i];
+			j++;
+		}
+		else
+			space = 1;
+		i++;
+	}
+	ft_bzero((s + j), i - j);
+	return (s);
 }

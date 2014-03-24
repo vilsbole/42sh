@@ -3,60 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/29 23:16:54 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:51:41 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/28 13:40:39 by gchateau          #+#    #+#             */
+/*   Updated: 2013/12/29 22:53:18 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
+#include "libft.h"
 
-static int	get_nbwords(char const *s, char c)
+static size_t	ft_strsplit_arrsize(char const *s, char c)
 {
-	int	nb_words;
-	int	i;
+	size_t	isc;
+	size_t	j;
+	size_t	n;
 
-	i = 0;
-	nb_words = 0;
-	while (s && *(s + i))
+	isc = 0;
+	j = 0;
+	n = 0;
+	if (!s)
+		return (0);
+	while (s[j] != '\0')
 	{
-		while (*(s + i) && *(s + i) == c)
-			i++;
-		if (*(s + i))
-			nb_words++;
-		while (*(s + i) && *(s + i) != c)
-			i++;
+		if (s[j] != c && isc == 0)
+		{
+			isc = 1;
+			n++;
+		}
+		else if (s[j] == c && isc == 1)
+			isc = 0;
+		j++;
 	}
-	return (nb_words);
+	return (n);
 }
 
-char		**ft_strsplit(char const *s, char c)
+static size_t	ft_strsplit_strlen(char const *s, char c)
 {
-	size_t	start;
-	size_t	end;
-	char	**ptr;
-	int		i;
+	size_t	i;
 
-	start = 0;
-	end = 0;
 	i = 0;
-	ptr = NULL;
 	if (!s)
-		return (ptr);
-	ptr = (char **)ft_memalloc(sizeof(char *) * (get_nbwords(s, c) + 1));
-	while (get_nbwords(s, c) - i)
-	{
-		while (s && *(s + start) && *(s + start) == c)
-			start++;
-		while (s && *(s + start + end) && *(s + start + end) != c)
-			end++;
-		ptr[i] = ft_strsub(s, start, end);
-		start += end;
-		end = 0;
+		return (0);
+	while (s[i] != c && s[i] != '\0')
 		i++;
+	return (i);
+}
+
+static void		ft_strsplit_freearr(char **arr, size_t i)
+{
+	while (i--)
+		free((void *)arr[i]);
+	free((void *)arr);
+}
+
+static size_t	ft_strsplit_fillarr(char **arr, char const *s, char c, size_t i)
+{
+	size_t	len;
+
+	len = ft_strsplit_strlen(s, c);
+	arr[i] = ft_strsub(s, 0, len);
+	if (arr[i] == NULL)
+	{
+		ft_strsplit_freearr(arr, i - 1);
+		return (0);
 	}
-	ptr[i] = NULL;
-	return (ptr);
+	return (len);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	size_t	i;
+	size_t	len;
+	char	**arr;
+
+	i = 0;
+	if (!s || ft_isascii(c) == 0)
+		return (NULL);
+	arr = ft_memalloc(sizeof(char *) * (ft_strsplit_arrsize(s, c) + 1));
+	if (arr == NULL)
+		return (NULL);
+	while (*s != '\0')
+	{
+		if (*s == c)
+			s++;
+		else if (*s != c)
+		{
+			if ((len = ft_strsplit_fillarr(arr, s, c, i)) == 0)
+				return (NULL);
+			s += len;
+			i++;
+		}
+	}
+	arr[i] = NULL;
+	return (arr);
 }

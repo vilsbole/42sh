@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/20 18:49:44 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:28:27 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/23 15:28:34 by gchateau          #+#    #+#             */
+/*   Updated: 2013/11/30 14:49:44 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 
 void	*ft_memccpy(void *s1, const void *s2, int c, size_t n)
 {
-	unsigned char		*tmp_s1;
-	unsigned const char	*tmp_s2;
+	unsigned char			*tmp1;
+	const unsigned char		*tmp2;
 
-	tmp_s1 = s1;
-	tmp_s2 = s2;
-	while (n-- != 0)
+	tmp1 = s1;
+	tmp2 = s2;
+	while (n--)
 	{
-		if (*tmp_s2 != (unsigned char) c)
-		{
-			*tmp_s1++ = *tmp_s2++;
-		}
-		else
-		{
-			*tmp_s1++ = *tmp_s2++;
-			return (tmp_s1);
-		}
+		*tmp1++ = *tmp2++;
+		if (*(tmp2 - 1) == (unsigned char)c)
+			return (tmp1);
 	}
 	return (NULL);
 }

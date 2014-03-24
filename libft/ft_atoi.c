@@ -3,36 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/23 21:41:55 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:18:21 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/20 13:03:08 by gchateau          #+#    #+#             */
+/*   Updated: 2013/12/19 18:54:56 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char * str)
+static int	ft_atoi_isvalid(const char *s, int i)
 {
-	int	sign;
-	int	ret;
-	int	stop;
+	if (ft_isdigit(s[i]) == 1
+		|| (i == 0 && (s[i] == '-' || s[i] == '+')))
+		return (1);
+	return (0);
+}
 
+int			ft_atoi(const char *s)
+{
+	int		i;
+	int		sign;
+	int		result;
+
+	if (!s)
+		return (0);
+	i = 0;
 	sign = 1;
-	ret = 0;
-	stop = 0;
-	while (*str == '\t' || *str == '\v' || *str == '\n' || *str == '\r'
-			|| *str == '\f' || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
+	result = 0;
+	while (ft_isspace(*s) == 1)
+		s++;
+	while (s[i] != '\0' && ft_atoi_isvalid(s, i) == 1)
 	{
-		sign = (*str == '-') ? -1 : 1;
-		str++;
+		if (i == 0 && s[i] == '-')
+			sign = -1;
+		if (ft_isdigit(s[i]))
+			result = s[i] - '0' + result * 10;
+		i += 1;
 	}
-	while (*str && ft_isdigit(*str))
-	{
-		ret = ret * 10 + *str - '0';
-		str++;
-	}
-	return (ret*sign);
+	return (result * sign);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/23 16:49:58 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:50:21 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/22 12:54:00 by gchateau          #+#    #+#             */
+/*   Updated: 2013/12/03 20:17:26 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	size_t	count_s2;
-	size_t	count_s1;
+	size_t	i;
+	size_t	j;
 
-	count_s2 = 0;
-	count_s1 = 0;
-	while (*(s1 + count_s1) && n)
+	i = 0;
+	if (ft_strlen(s2) == 0)
+		return ((char *)s1);
+	while (i < n && s1[i] != '\0')
 	{
-		if (count_s2 == ft_strlen(s2))
-			return ((char *)(s1));
-		if (*(s1 + count_s1) != *(s2 + count_s2))
-			return (ft_strnstr(s1 + count_s1 + 1, s2, --n));
-		count_s2++;
-		count_s1++;
-		n--;
+		if (s1[i] == s2[0])
+		{
+			j = 0;
+			while ((i + j) < n && j < (size_t)ft_strlen(s2)
+					&& s1[i + j] == s2[j])
+			{
+				j += 1;
+				if (s2[j] == '\0')
+					return ((char *)s1 + i);
+			}
+		}
+		i += 1;
 	}
-	if (count_s2 == ft_strlen(s2))
-		return ((char *)(s1));
 	return (NULL);
 }

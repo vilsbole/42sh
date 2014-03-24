@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/30 16:18:05 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:42:21 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/20 12:06:35 by gchateau          #+#    #+#             */
+/*   Updated: 2013/12/21 22:53:50 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	if (!s || !fd)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

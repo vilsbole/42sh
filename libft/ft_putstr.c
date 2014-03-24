@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/30 15:58:15 by mfassi-f          #+#    #+#             */
-/*   Updated: 2013/12/30 15:41:59 by fmarin           ###   ########.fr       */
+/*   Created: 2013/11/20 11:59:58 by gchateau          #+#    #+#             */
+/*   Updated: 2013/11/30 13:49:05 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+void	ft_putstr(const char *s)
 {
-	while (*(s))
-		ft_putchar(*s++);
+	if (s)
+		ft_putstr_fd(s, 1);
 }
