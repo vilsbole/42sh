@@ -67,7 +67,7 @@ void	free_all_trees(t_cmds	**cmds)
 void    go_to_up(t_cmds **cmds)
 {
 	int     i;
-	t_cmds  *tree;
+	t_cmds  *tree = NULL;
 	
 	i = 0;
 	if (!cmds || *cmds == NULL)
