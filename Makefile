@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/21 21:34:01 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/24 12:10:34 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/25 00:28:39 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJDIR = obj
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 AR = ar -cq
-CFLAGS = gcc -Wall -Wextra -Werror -O0 -g
+CFLAGS = gcc -Wall -Wextra -Werror -O0 -g3
 
 # COLORS
 GRN = "\x1b[32;01m"

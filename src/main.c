@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 19:05:54 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/25 00:22:40 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			main(int ac, char **av, char **ep)
 	ft_signal();
 	get_env()->fd_in = dup(0);
 	get_env()->fd_out = dup(1);
-	get_env()->datas = datas;
+//	get_env()->datas = datas;
 	while (42)
 	{
 		if (ft_prompt(datas, 1) == NULL)

@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:52:39 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 19:17:34 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/24 23:42:47 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,20 @@ void	free_all_trees(t_cmds	**cmds)
 	}
 	free(cmds);
 }
-
 void    go_to_up(t_cmds **cmds)
 {
-	int		i;
-	t_cmds	**tree;
-
+	int     i;
+	t_cmds  *tree;
+	
 	i = 0;
-	while (cmds && cmds[i])
+	if (!cmds || *cmds == NULL)
+		return ;
+	while (cmds[i] != NULL)
 	{
-		tree = cmds + i;
-		while (tree && *tree &&  (*tree)->father)
-			*tree = (*tree)->father;
+		tree = *(cmds + i);
+		while (tree && tree->father)
+			tree = tree->father;
+		*(cmds + i) = tree;
 		i++;
 	}
 }

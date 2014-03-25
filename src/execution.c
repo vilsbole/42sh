@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 21:41:37 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/25 00:22:43 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int exec_cmd(t_cmds *tree)
 			ft_putstr_fd("Fork failed\n", 2);
 			return (-1);
 		}
-		waitpid(pid, &(get_env()->datas->status), 0);
-		ft_response(get_env()->datas);
+		wait(0);
+		//waitpid(pid, &(get_env()->datas->status), 0);
+//		ft_response(get_env()->datas);
 	}
 	if (ret == -1)
 		exit(0);
