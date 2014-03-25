@@ -33,6 +33,7 @@ int			ft_shell_start(t_datas *datas)
 	struct termios	sterm;
 	struct termios	*restore;
 
+	restore = NULL;
 	datas->flags &= ~FLAG_TERM;
 	if (tgetent(NULL, ft_getenv(datas->local, "TERM")) < 1)
 	{
