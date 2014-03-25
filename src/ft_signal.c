@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/18 16:20:05 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 20:07:44 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/25 18:23:08 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	ft_signal_prompt(int sig)
 	if (sig == SIGINT)
 		ft_putchar('\n');
 	ft_prompt(datas, 0);
+	if (FLAG_ISTERM(datas->flags) && FLAG_ISCOLOR(datas->flags))
+		ft_putstr(FTSH_HWHITE);
 }
 
 static void	ft_signal_exit(int sig)
