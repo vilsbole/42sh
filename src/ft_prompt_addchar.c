@@ -6,11 +6,10 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/23 18:10:59 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/25 17:43:50 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <libft.h>
 #include <42sh.h>
 
@@ -49,7 +48,6 @@ void		ft_prompt_addchar(t_datas *datas, t_line *line, char c)
 	if ((line->y == 0 && line->x == datas->cols - line->plen)
 		|| (line->y > 0 && line->x == datas->cols))
 		ft_prompt_addchar_nl(datas, line);
-	dprintf(datas->debug, "%sADDCHAR:%s\tx: %i\ty: %i\n", FTSH_CYAN, FTSH_COLOR_RESET, line->x, line->y);
 	if (line->i != line->len - 1)
 		ft_prompt_reprint(datas, line, 0);
 }
