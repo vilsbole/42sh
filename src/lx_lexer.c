@@ -12,18 +12,8 @@
 
 #include "lexer.h"
 
-void	ft_arrayset(char **array, int size)
+void		lx_closetok(char **data, t_flags *flags)
 {
-	while (size--)
-	{
-		if (array[size])
-		array[size] = ft_strnew(1024);
-	}
-}
-
-void	lx_closetok(char **data, t_flags *flags)
-{
-	pr_printf("lx_closetok\n");
 	int		i;
 
 	i = 0;
@@ -36,9 +26,9 @@ void	lx_closetok(char **data, t_flags *flags)
 		flags->token = 0;
 		flags->len++;
 	}
-}	
+}
 
-void	lx_endinput(char **data, t_flags *flags)
+void		lx_endinput(char **data, t_flags *flags)
 {
 	if (flags->token)
 		lx_closetok(data, flags);
@@ -46,9 +36,8 @@ void	lx_endinput(char **data, t_flags *flags)
 		data[flags->index][0] = '\0';
 }
 
-void	lx_addtoword(char **data, char c, t_flags *flags)
+void		lx_addtoword(char **data, char c, t_flags *flags)
 {
-	pr_printf("lx_addtoword\n");
 	int		i;
 
 	i = 0;
@@ -67,9 +56,8 @@ void	lx_addtoword(char **data, char c, t_flags *flags)
 	}
 }
 
-int		lx_tokopr(char **data, char *str, t_flags *flags)
+int			lx_tokopr(char **data, char *str, t_flags *flags)
 {
-//	pr_printf("lx_tokopr\n");
 	int		shift;
 
 	shift = 0;
@@ -84,9 +72,8 @@ int		lx_tokopr(char **data, char *str, t_flags *flags)
 	return (0);
 }
 
-int		lx_flags(char c, t_flags *flags)
+int			lx_flags(char c, t_flags *flags)
 {
-	pr_printf("lx_flags\n");
 	if (lx_count(ARGS, c))
 	{
 		if (c == '"')
@@ -99,21 +86,6 @@ int		lx_flags(char c, t_flags *flags)
 		return (1);
 	}
 	return (0);
-}
-
-t_flags		*lx_set_flags(void)
-{
-	t_flags		*flags;
-
-	flags = NULL;
-	if ((flags = (t_flags *)malloc(sizeof(t_flags))))
-	{
-		flags->index = 0;
-		flags->quote = 0;
-		flags->token = 0;
-		flags->len = 0;
-	}
-	return (flags);
 }
 
 void		lx_scanner(char *line, char **data)
@@ -132,8 +104,9 @@ void		lx_scanner(char *line, char **data)
 		}
 		if (flags->quote == 0 && lx_tokopr(data, &line[i], flags))
 			i++;
-		i += lx_flags(line[i], flags);		/* A replacer ? */
+		i += lx_flags(line[i], flags);
 		if (flags->quote == 2)
+			continue;
 			//dquote(data, flags, line[i]);
 		if (line[i] == '\n')
 			lx_closetok(data, flags);
@@ -142,43 +115,6 @@ void		lx_scanner(char *line, char **data)
 			lx_addtoword(data, line[i], flags);
 	}
 	lx_endinput(data, flags);
-}
-
-int     lx_arrsize(char **arr)
-{
-    int     i;
-
-    i = 0;
-    if (arr)
-    {
-        while (arr[i][0] != '\0')
-            i++;
-    }
-    return (i);
-}
-
-char    **lx_arrdup(char **arr)
-{
-    size_t  len;
-    size_t  i;
-    char    **new;
-
-    if (!arr)
-		return (NULL);
-    len = (size_t)lx_arrsize(arr);
-    new = ft_arrnew(len);
-    if (new == NULL)
-		return (NULL);
-    i = 0;
-    while (i < len)
-    {
-		if (arr[i][0] == '\0')
-			new[i] = NULL;
-		else
-			new[i] = ft_strdup(arr[i]);
-		i++;
-    }
-    return (new);
 }
 
 char		**lx_lexer(char *line)
@@ -191,7 +127,7 @@ char		**lx_lexer(char *line)
 	i = 0;
 	axiom = line;
 	data = ft_arrnew(MAX_SIZE_ARR);
-	ft_arrayset(data, MAX_SIZE_STR);
+	lx_arrayset(data, MAX_SIZE_STR);
 	if (ft_strequ(axiom, "exit") || ft_strequ(axiom, "quit"))
 		exit(EXIT_SUCCESS);
 	else

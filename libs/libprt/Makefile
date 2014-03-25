@@ -47,6 +47,9 @@ CYAN	= \033[1;36m
 YELLOW	= \033[38;5;3m
 RED		= \033[1;31m
 WHITE	= \033[0m
+GRN = "\x1b[32;01m"
+YLLW = "\x1b[33;01m"
+NCLR = "\x1b[0m"
 
 # MAKEHELP
 LOADING = ./makehelp/loading
@@ -57,21 +60,21 @@ LOADING = ./makehelp/loading
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)linking project lib...$(DARK)"
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[all]$(NCLR):'\t''\t'Creation of $(NAME)
 	@$(AR) $@ $^
 	@ranlib $@
-	@echo "$(WHITE)$(YELLOW)$(NAME) built$(WHITE)\n"
+	
 	
 $(addprefix $(OBJDIR)/, %.o): $(addprefix $(SRCDIR)/, %.c)
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(HPATH) -o $@ -c $^
 
 clean:
-	@echo "$(YELLOW)removing $(OBJDIR)...$(WHITE)"
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[clean]$(NCLR):'\t'Deleting \'.o\' files
 	@$(RM) $(OBJDIR)
 
 fclean: clean
-	@echo "$(YELLOW)removing $(NAME)...$(WHITE)"
+	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[fclean]$(NCLR):'\t'Deleting $(NAME)
 	@$(RM) $(NAME)
 
 re: fclean
