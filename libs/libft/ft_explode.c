@@ -24,7 +24,7 @@ static size_t	ft_explode_len(const char *s, const char *str, size_t slen)
 	return (i);
 }
 
-char**			ft_explode(const char *s, const char *str)
+char			**ft_explode(const char *s, const char *str)
 {
 	size_t			slen;
 	size_t			len;
