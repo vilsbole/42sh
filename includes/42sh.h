@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 19:09:02 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/25 16:51:00 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@
 # define FLAG_ISTERM(fl)		((fl & FLAG_TERM) != 0)
 # define FLAG_ISCOLOR(fl)		((fl & FLAG_COLOR) != 0)
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
-
-# include <curses.h>
-# include <term.h>
 
 typedef struct      s_cmds
 {
