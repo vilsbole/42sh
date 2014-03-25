@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/25 00:22:43 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/25 17:06:11 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@
 
 void    execution(t_cmds *tree)
 {
-	dprintf(2, "execution\n");
-	dprintf(2, "j'execute : %s\n", tree->cmd[0]);
 	tree->cmd_path = ft_findexe(get_env()->datas->path, tree->cmd[0]);
-	if (execve(tree->cmd_path, tree->cmd, get_env()->datas->env) == -1)
+	if (!tree->cmd_path)
 	{
 		ft_putstr_fd("42sh: command not found: ", 2);
+		ft_putendl_fd(tree->cmd[0], 2);
+		exit(1);
+	}
+	if (execve(tree->cmd_path, tree->cmd, get_env()->datas->env) == -1)
+	{
+		ft_putstr_fd("42sh: command failed: ", 2);
 		ft_putendl_fd(tree->cmd[0], 2);
 		exit(1);
 	}
@@ -66,7 +70,28 @@ int exec_tree(t_cmds *tree)
 	{
 		if (exec_cmd(tree))
 			return (-1);
-		exec_tree(tree->right);
+		if (tree->lredir)
+			unlink(".cartmanlikes42");
+		if (tree->rredir)
+		{
+			int i;
+			int	fd;
+
+			i = 1;
+			while(tree->rredir[i])
+			{
+				if ((fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC) == -1))
+					no_such_file(tree->rredir[i]);
+				else
+					get_write
+			}
+		}
+		if (tree->flag == OR && !WIFEXITED(get_env()->datas->status))
+			exec_tree(tree->right);
+		else if (tree->flag == AND && WIFEXITED(get_env()->datas->status))
+			exec_tree(tree->right);
+		else if (tree->flag == UNDEF)
+			exec_tree(tree->right);
 	}
 	else if (tree->type == PIPE)
 		ft_pipe(tree);
