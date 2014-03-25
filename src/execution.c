@@ -50,9 +50,8 @@ int exec_cmd(t_cmds *tree)
 			ft_putstr_fd("Fork failed\n", 2);
 			return (-1);
 		}
-		wait(0);
-		//waitpid(pid, &(get_env()->datas->status), 0);
-//		ft_response(get_env()->datas);
+		waitpid(pid, &(get_env()->datas->status), 0);
+		ft_response(get_env()->datas);
 	}
 	if (ret == -1)
 		exit(0);

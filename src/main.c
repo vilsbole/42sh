@@ -35,8 +35,7 @@ static void	ft_parser_load(t_datas *datas)
 {
 	char		**tmp;
 
-	tmp = ft_strsplit(datas->prompt.buffer, ' ');
-	//tmp = ft_cmdsplit(datas->prompt.buffer);
+	tmp = ft_cmdsplit(datas->prompt.buffer);
 	//tmp = lx_lexer(datas->prompt.buffer);
 	get_env()->cmds = parser(tmp);
 	ft_arrdel(&tmp);
@@ -62,7 +61,7 @@ int			main(int ac, char **av, char **ep)
 	ft_signal();
 	get_env()->fd_in = dup(0);
 	get_env()->fd_out = dup(1);
-//	get_env()->datas = datas;
+	get_env()->datas = datas;
 	while (42)
 	{
 		if (ft_prompt(datas, 1) == NULL)
