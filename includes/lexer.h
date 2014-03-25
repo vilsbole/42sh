@@ -24,7 +24,7 @@
 # define ARGS "\"\'\\"
 # define BLANK " \t"
 # define WORD "<>|&;\\\"\'\\ \t"
-# define MAX_SIZE_ARR	1024
+# define MAX_SIZE_STR	1024
 # define MAX_SIZE_ARG	512
 
 typedef struct	s_flags
