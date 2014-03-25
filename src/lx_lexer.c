@@ -90,7 +90,6 @@ int			lx_tokopr(char **data, char *str, t_flags *flags)
 
 int			lx_flags(char c, t_flags *flags)
 {
-	pr_printf("lx_flags on char %c\n", c);
 	if (lx_count(ARGS, c))
 	{
 		if (c == '"')

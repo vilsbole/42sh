@@ -39,7 +39,8 @@ char			*pr_itoa(int n)
 	len = pr_nbrlen(n);
 	str = (char *)malloc(sizeof(str) * len + 1);
 	if (str)
-	{	str[len + 1] = '\0';
+	{
+		str[len + 1] = '\0';
 		while (len--)
 		{
 			str[len] = (n < 0) ? (n % 10) * -1 + 48 : (n % 10) + 48;

@@ -11,16 +11,16 @@
 #******************************************************************************#
 
 NAME = 42sh
-
+LIB = libft.a
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -O3 -pedantic -g
-
+LIBFT_NAME = libft.a
+LIBFT_DIR = ./libft
+LIB = $(LIBFT_DIR)/$(LIBFT_NAME) $(CLIBS)
 LPATH = -L libft/ -lft -ltermcap
 HPATH = -Iincludes -I$(LIBFT_DIR)/includes
 
-LIB = libft.a
 
-SRCPATH = ./src/
 
 FILES = main ft_findexe ft_error ft_signal ft_response \
 		ft_getterm ft_getdatas ft_getdatas_setenv ft_getdatas_setlocal \
@@ -45,10 +45,7 @@ FILES = main ft_findexe ft_error ft_signal ft_response \
 		ft_pipe parser execution cmds t_env parser_utils ft_redir
 
 
-LIBFT_NAME = libft.a
 
-LIBFT_DIR = ./libft
-LIB = $(LIBFT_DIR)/$(LIBFT_NAME) $(CLIBS)
 
 CFLAGS = gcc -Wall -Wextra -Werror -O0 -g
 SRCPATH = ./src/

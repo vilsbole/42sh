@@ -40,5 +40,9 @@ typedef struct	s_flags
 */
 char		**lx_lexer(char *line);
 int			lx_count(char *str, char c);
+void		lx_arrayset(char **array, int size);
+int			lx_arrsize(char **arr);
+char		**lx_arrdup(char **arr);
+t_flags		*lx_set_flags(void);
 
 #endif /* !LEXER_H */

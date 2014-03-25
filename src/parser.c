@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 20:05:39 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/24 23:54:59 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,56 +136,51 @@ void    parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 		*is_new_cmd = FALSE;
 	}
 }
+
+int     parser_process(t_cmds **current_node, int *is_new, char **lex, t_cmds **cmds)
+{
+	int res;
+
+	res = 0;
+	parser_new_cmd(current_node, &is_new[1], lex);
+	if (!ft_strcmp(*lex, ";"))
+		is_new[0] = TRUE;
+	else if (!ft_strcmp(*lex, "|"))
+		res = parser_pipe(current_node, &is_new[1], lex, cmds);
+	else if (!ft_strcmp(*lex, "||"))
+		res = parser_or(current_node, &is_new[1], lex, cmds);
+	else if (!ft_strcmp(*lex, "&&"))
+		res = parser_and(current_node, &is_new[1], lex, cmds);
+	else if (!ft_strcmp(*lex, "<"))
+		res = parser_lredir(current_node, lex, cmds);
+	else if (!ft_strcmp(*lex, ">"))
+		res = parser_rredir(current_node, lex, cmds);
+	else
+	{
+		(*current_node)->type = CMD;
+		add_token((*current_node)->cmd, *lex);
+	}
+	return (res);
+}
+
 t_cmds  **parser(char **lex)
 {
 	t_cmds  **cmds;
-	int     is_new_cmds;
-	int     is_new_cmd;
+	int     is_new[2];
 	t_cmds  **current_tree;
 	t_cmds  *current_node;
 
-	is_new_cmds = FALSE;
-	is_new_cmd = TRUE;
+	is_new[0] = FALSE;
+	is_new[1] = TRUE;
 	cmds = (t_cmds **)ft_memalloc(sizeof(t_cmds *) * nb_semicolon(lex));
 	*cmds = new_cmd();
 	current_tree = cmds;
 	current_node = *cmds;
 	while (lex && *lex)
 	{
-		parser_new_cmds(&current_tree, &current_node, &is_new_cmds, &is_new_cmd);
-		parser_new_cmd(&current_node, &is_new_cmd, lex);
-		if (!ft_strcmp(*lex, ";"))
-			is_new_cmds = TRUE;
-		else if (!ft_strcmp(*lex, "|"))
-		{
-			if (parser_pipe(&current_node, &is_new_cmd, lex, cmds))
-				return (NULL);
-		}
-		else if (!ft_strcmp(*lex, "||"))
-		{
-			if (parser_or(&current_node, &is_new_cmd, lex, cmds))
-				return (NULL);
-		}
-		else if (!ft_strcmp(*lex, "&&"))
-		{
-			if (parser_and(&current_node, &is_new_cmd, lex, cmds))
-				return (NULL);
-		}
-		else if (!ft_strcmp(*lex, "<"))
-		{
-			if (parser_lredir(&current_node, lex, cmds))
-				return (NULL);
-		}
-		else if (!ft_strcmp(*lex, ">"))
-		{
-			if (parser_rredir(&current_node, lex, cmds))
-				return (NULL);
-		}
-		else
-		{
-			current_node->type = CMD;
-			add_token((current_node->cmd), *lex);
-		}
+		parser_new_cmds(&current_tree, &current_node, &is_new[0], &is_new[1]);
+		if (parser_process(&current_node, is_new, lex, cmds))
+			return (NULL);
 		lex++;
 	}
 	go_to_up(cmds);
