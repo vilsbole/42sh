@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/25 20:29:11 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:20:48 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
 # define FTSH_KEY_CTRLD			("\004")
 # define FTSH_KEY_TAB			("\011")
 # define FTSH_KEY_CTRLR			("\022")
-# define TMP_FILE_L				("/tmp/.cartmanlikes42L")
-# define TMP_FILE_R				("/tmp/.cartmanlikes42R")
+# define TMP_FILE_L				("/cartmanlikes42L")
+# define TMP_FILE_R				("/cartmanlikes42R")
 # define CMD					(0)
 # define PIPE					(1)
 # define AND					(0)
