@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 23:54:59 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 17:52:05 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int     parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **
 
 int     parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 {
-	lex++;
+	dprintf(2, "je suis sur %s\n", *lex);
 	if (!*(lex) || !ft_strcmp(*(lex), "&&")
 			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
 			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
@@ -91,6 +91,7 @@ int     parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 		free_all_trees(cmds);
 		return (-1);
 	}
+	dprintf(2, "hey je rajoute un token %s \n", *lex);
 	add_token((*current_node)->lredir, *lex);
 	(*current_node)->type = CMD;
 	return (0);
@@ -98,7 +99,6 @@ int     parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 
 int     parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 {
-	lex++;
 	if (!*(lex) || !ft_strcmp(*(lex), "&&")
 			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
 			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
@@ -113,6 +113,21 @@ int     parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
 	return (0);
 }
 
+int     parser_drredir(t_cmds **current_node, char **lex, t_cmds **cmds)
+{
+	if (!*(lex) || !ft_strcmp(*(lex), "&&")
+			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
+			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
+			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
+	{
+		ft_putstr_fd("42sh: parse error near '>>'\n", 2);
+		free_all_trees(cmds);
+		return (-1);
+	}
+	add_token((*current_node)->drredir, *lex);
+	(*current_node)->type = CMD;
+	return (0);
+}
 void    parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_new_cmds, int *is_new_cmd)
 {
 	if (*is_new_cmds)
@@ -129,37 +144,41 @@ void    parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 {
 	if (*is_new_cmd)
 	{
-		dprintf(2, "nb = %d\n", len_cmd(lex));
 		(*current_node)->cmd = new_arr(len_cmd(lex));
 		(*current_node)->rredir = new_arr((nb_item(lex, ">")) + 1);
 		(*current_node)->lredir = new_arr((nb_item(lex, "<")) + 1);
+		(*current_node)->drredir = new_arr((nb_item(lex, ">>")) + 1);
 		*is_new_cmd = FALSE;
 	}
 }
 
-int     parser_process(t_cmds **current_node, int *is_new, char **lex, t_cmds **cmds)
+int     parser_process(t_cmds **current_node, int *is_new, char ***lex, t_cmds **cmds)
 {
 	int res;
 
 	res = 0;
-	parser_new_cmd(current_node, &is_new[1], lex);
-	if (!ft_strcmp(*lex, ";"))
+	parser_new_cmd(current_node, &is_new[1], *lex);
+	if (!ft_strcmp(**lex, ";"))
 		is_new[0] = TRUE;
-	else if (!ft_strcmp(*lex, "|"))
-		res = parser_pipe(current_node, &is_new[1], lex, cmds);
-	else if (!ft_strcmp(*lex, "||"))
-		res = parser_or(current_node, &is_new[1], lex, cmds);
-	else if (!ft_strcmp(*lex, "&&"))
-		res = parser_and(current_node, &is_new[1], lex, cmds);
-	else if (!ft_strcmp(*lex, "<"))
-		res = parser_lredir(current_node, lex, cmds);
-	else if (!ft_strcmp(*lex, ">"))
-		res = parser_rredir(current_node, lex, cmds);
+	else if (!ft_strcmp(**lex, "|"))
+		res = parser_pipe(current_node, &is_new[1], *lex, cmds);
+	else if (!ft_strcmp(**lex, "||"))
+		res = parser_or(current_node, &is_new[1], *lex, cmds);
+	else if (!ft_strcmp(**lex, "&&"))
+		res = parser_and(current_node, &is_new[1], *lex, cmds);
+	else if (!ft_strcmp(**lex, "<"))
+		res = parser_lredir(current_node, ++(*lex), cmds);
+	else if (!ft_strcmp(**lex, ">"))
+		res = parser_rredir(current_node, ++(*lex), cmds);
+	else if (!ft_strcmp(**lex, ">>"))
+		res = parser_drredir(current_node, ++(*lex), cmds);
 	else
 	{
+		dprintf(2, "J'ai trouver un e commande\n");
 		(*current_node)->type = CMD;
-		add_token((*current_node)->cmd, *lex);
+		add_token((*current_node)->cmd, **lex);
 	}
+	dprintf(2, "je suit sortit\n");
 	return (res);
 }
 
@@ -179,9 +198,11 @@ t_cmds  **parser(char **lex)
 	while (lex && *lex)
 	{
 		parser_new_cmds(&current_tree, &current_node, &is_new[0], &is_new[1]);
-		if (parser_process(&current_node, is_new, lex, cmds))
+		if (parser_process(&current_node, is_new, &lex, cmds))
 			return (NULL);
+		dprintf(2, "lex %s\n", *lex);
 		lex++;
+		dprintf(2, "lex %s\n", *lex);
 	}
 	go_to_up(cmds);
 	return (cmds);

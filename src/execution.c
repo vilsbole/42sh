@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/25 17:06:11 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/25 20:56:45 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <libft.h>
 #include <42sh.h>
 #include <stdio.h>
+#include <fcntl.h>
 
 void    execution(t_cmds *tree)
 {
@@ -62,35 +63,58 @@ int exec_cmd(t_cmds *tree)
 	return (0);
 }
 
+
+void	fill_files(t_cmds *tree)
+{
+	int i;
+	int fd;
+	int	file_fd;
+
+	i = 0;
+	if (tree->rredir && tree->rredir[i])
+	{
+		fd = open(TMP_FILE_L, O_RDONLY);
+		while (tree->rredir[i])
+		{
+			file_fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC);
+			get_write_file(TMP_FILE_L, file_fd);
+			close(file_fd);
+			i++;
+		}
+		close(fd);
+	}
+	i = 0;
+	if (tree->drredir && tree->drredir[i])
+	{
+		fd = open(TMP_FILE_L, O_RDONLY);
+		while (tree->drredir[i])
+		{
+			file_fd = open(tree->drredir[i], O_RDWR | O_CREAT | O_APPEND);
+			get_write_file(TMP_FILE_L, file_fd);
+			close(file_fd);
+			i++;
+		}
+		close(fd);
+	}
+}
+
+
 int exec_tree(t_cmds *tree)
 {
+	int	success;
+
 	if (!tree)
 		return (0);
 	if (tree->type == CMD)
 	{
 		if (exec_cmd(tree))
 			return (-1);
-		if (tree->lredir)
-			unlink(".cartmanlikes42");
-		if (tree->rredir)
-		{
-			int i;
-			int	fd;
-
-			i = 1;
-			while(tree->rredir[i])
-			{
-				if ((fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC) == -1))
-					no_such_file(tree->rredir[i]);
-				else
-					get_write
-			}
-		}
-		if (tree->flag == OR && !WIFEXITED(get_env()->datas->status))
-			exec_tree(tree->right);
-		else if (tree->flag == AND && WIFEXITED(get_env()->datas->status))
-			exec_tree(tree->right);
-		else if (tree->flag == UNDEF)
+		unlink(TMP_FILE_R);
+		unlink(TMP_FILE_L);
+		success = ft_atoi(ft_getenv(get_env()->datas->local, "?"));
+		if (tree->right && ((tree->right->flag == OR && success != 0)
+			|| (tree->right->flag == AND && success == 0)
+			|| (tree->right->flag == UNDEF)))
 			exec_tree(tree->right);
 	}
 	else if (tree->type == PIPE)

@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:52:39 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 23:42:47 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/25 21:27:56 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmds  *new_cmd(void)
 		new->flag = UNDEF;
 		new->cmd_path = NULL;
 		new->rredir = NULL;
+		new->drredir = NULL;
 		new->lredir = NULL;
 		new->right = NULL;
 		new->left = NULL;
@@ -48,7 +49,7 @@ void    free_tree(t_cmds **tree)
 	free(*tree);
 }
 
-void	free_all_trees(t_cmds	**cmds)
+void	free_all_trees(t_cmds **cmds)
 {
 	int		i;
 	t_cmds	**tree;
@@ -64,6 +65,7 @@ void	free_all_trees(t_cmds	**cmds)
 	}
 	free(cmds);
 }
+
 void    go_to_up(t_cmds **cmds)
 {
 	int     i;

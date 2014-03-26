@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:16:13 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 19:22:37 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/25 21:24:42 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ int     get_write_file(char *file, int fd)
 	free(content);
 	if (close(file_fd) == -1)
 	{
-		ft_putstr_fd("close failed\n", 2);
 		close(fd);
-		return (-1);
+		return (ft_error(FTSH_NAME, "close failed", NULL));
 	}
 	return (0);
 }
@@ -75,33 +74,25 @@ int ft_redir_left(t_cmds *tree)
 {
 	int     i;
 	int     fd;
-	char    *tmp;
 
-	dprintf(2, "left\n");
 	if (!tree->lredir || !tree->lredir[0])
 		return (0);
+	dprintf(2, "hey2\n");
 	i = 0;
-	tmp = ".cartmanlikes42";
 	if (!tree->cmd || (tree->cmd && !tree->cmd[0])
 		|| (tree->father && tree->father->type != PIPE))
 		fd = 1;
-	else if ((fd = open(tmp, O_RDWR | O_CREAT | O_TRUNC)) == -1)
-	{
-		ft_putstr_fd("42sh: open failed\n", 2);
-		return (-1);
-	}
-	chmod(tmp, S_IRWXU);
+	else if ((fd = open(TMP_FILE_L, O_RDWR | O_CREAT | O_TRUNC)) == -1)
+		return (ft_error(FTSH_NAME, "open failed.", NULL));
+	chmod(TMP_FILE_L, S_IRWXU);
 	while (tree->lredir[i])
 		if (get_write_file(tree->lredir[i++], fd))
 			return (-1);
 	close(fd);
-	if ((fd = open(tmp, O_RDONLY)) == -1)
-	{
-		ft_putstr_fd("42sh: open failed\n", 2);
-		return (-1);
-	}
+	if ((fd = open(TMP_FILE_L, O_RDONLY)) == -1)
+		return (ft_error(FTSH_NAME, "open failed.", NULL));
 	if (dup2(fd, 0) == -1)
-		ft_putstr_fd("42sh: dup failed\n", 2);
+		return (ft_error(FTSH_NAME, "dup failed.", NULL));
 	close(fd);
 	return (0);
 }
@@ -110,18 +101,17 @@ int ft_redir_right(t_cmds *tree)
 {
 	int fd;
 
-	if (!tree->rredir || (tree->rredir && !tree->rredir[0]))
-	{
-		dprintf(2, "no-right\n");
+	if ((!tree->rredir || (tree->rredir && !tree->rredir[0]))
+		&& (!tree->drredir || (tree->drredir && !tree->drredir[0])))
 		return (0);
-	}
-	fd = open(tree->rredir[0], O_RDWR | O_TRUNC | O_CREAT);
+	dprintf(2, "hey\n");
+	fd = open(TMP_FILE_R, O_RDWR | O_TRUNC | O_CREAT);
 	if (fd == -1)
 	{
 		ft_putstr_fd("42sh: open failed\n", 2);
 		return (-1);
 	}
-	chmod(tree->rredir[0], S_IRWXU);
+	chmod(TMP_FILE_R, S_IRWXU);
 	dup2(fd, 1);
 	close(fd);
 	return (0);
