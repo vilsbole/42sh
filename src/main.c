@@ -35,8 +35,8 @@ static void	ft_parser_load(t_datas *datas)
 {
 	char		**tmp;
 
-	tmp = ft_cmdsplit(datas->prompt.buffer);
-	//tmp = lx_lexer(datas->prompt.buffer);
+//	tmp = ft_cmdsplit(datas->prompt.buffer);
+	tmp = lx_lexer(datas->prompt.buffer);
 	get_env()->cmds = parser(tmp);
 	ft_arrdel(&tmp);
 	if (!get_env()->cmds)
