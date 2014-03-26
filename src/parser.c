@@ -12,38 +12,9 @@
 
 #include <libft.h>
 #include <42sh.h>
-#include <stdio.h>
 
-int     parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
-{
-	t_cmds  *tmp;
-
-	tmp = (*current_node);
-	(*current_node) = new_cmd();
-	(*current_node)->type = PIPE;
-	(*current_node)->left = tmp;
-	if (tmp->father)
-	{
-		(*current_node)->father = tmp->father;
-		(*current_node)->father->right = (*current_node);
-	}
-	(*current_node)->left->father = (*current_node);
-	(*current_node)->right = new_cmd();
-	(*current_node)->right->father = (*current_node);
-	(*current_node) = (*current_node)->right;
-	*is_new_cmd = TRUE;
-	if (!*(lex + 1) || !ft_strcmp(*(lex + 1), "&&")
-			|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
-			|| !ft_strcmp(*(lex + 1), ";"))
-	{
-		ft_putstr_fd("42sh: parse error near '|'\n", 2);
-		free_all_trees(cmds);
-		return (-1);
-	}
-	return (0);
-}
-
-int     parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex,
+				t_cmds **cmds)
 {
 	(*current_node)->right = new_cmd();
 	(*current_node)->right->father = (*current_node);
@@ -61,7 +32,7 @@ int     parser_or(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **c
 	return (0);
 }
 
-int     parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
 {
 	(*current_node)->right = new_cmd();
 	(*current_node)->right->father = (*current_node);
@@ -79,56 +50,8 @@ int     parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **
 	return (0);
 }
 
-int     parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds)
-{
-	dprintf(2, "je suis sur %s\n", *lex);
-	if (!*(lex) || !ft_strcmp(*(lex), "&&")
-			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
-			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
-			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
-	{
-		ft_putstr_fd("42sh: parse error near '<'\n", 2);
-		free_all_trees(cmds);
-		return (-1);
-	}
-	dprintf(2, "hey je rajoute un token %s \n", *lex);
-	add_token((*current_node)->lredir, *lex);
-	(*current_node)->type = CMD;
-	return (0);
-}
-
-int     parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds)
-{
-	if (!*(lex) || !ft_strcmp(*(lex), "&&")
-			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
-			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
-			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
-	{
-		ft_putstr_fd("42sh: parse error near '>'\n", 2);
-		free_all_trees(cmds);
-		return (-1);
-	}
-	add_token((*current_node)->rredir, *lex);
-	(*current_node)->type = CMD;
-	return (0);
-}
-
-int     parser_drredir(t_cmds **current_node, char **lex, t_cmds **cmds)
-{
-	if (!*(lex) || !ft_strcmp(*(lex), "&&")
-			|| !ft_strcmp(*(lex), "||") || !ft_strcmp(*(lex), "|")
-			|| !ft_strcmp(*(lex), ">") || !ft_strcmp(*(lex), "<")
-			|| !ft_strcmp(*(lex), ">>") || !ft_strcmp(*(lex), ";"))
-	{
-		ft_putstr_fd("42sh: parse error near '>>'\n", 2);
-		free_all_trees(cmds);
-		return (-1);
-	}
-	add_token((*current_node)->drredir, *lex);
-	(*current_node)->type = CMD;
-	return (0);
-}
-void    parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_new_cmds, int *is_new_cmd)
+void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, 
+						int *is_new_cmds, int *is_new_cmd)
 {
 	if (*is_new_cmds)
 	{
@@ -140,7 +63,7 @@ void    parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, int *is_n
 	}
 }
 
-void    parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
+void	parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 {
 	if (*is_new_cmd)
 	{
@@ -152,7 +75,8 @@ void    parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 	}
 }
 
-int     parser_process(t_cmds **current_node, int *is_new, char ***lex, t_cmds **cmds)
+int		parser_process(t_cmds **current_node, int *is_new, char ***lex, 
+						t_cmds **cmds)
 {
 	int res;
 
@@ -174,15 +98,13 @@ int     parser_process(t_cmds **current_node, int *is_new, char ***lex, t_cmds *
 		res = parser_drredir(current_node, ++(*lex), cmds);
 	else
 	{
-		dprintf(2, "J'ai trouver un e commande\n");
 		(*current_node)->type = CMD;
 		add_token((*current_node)->cmd, **lex);
 	}
-	dprintf(2, "je suit sortit\n");
 	return (res);
 }
 
-t_cmds  **parser(char **lex)
+t_cmds	**parser(char **lex)
 {
 	t_cmds  **cmds;
 	int     is_new[2];
@@ -200,9 +122,7 @@ t_cmds  **parser(char **lex)
 		parser_new_cmds(&current_tree, &current_node, &is_new[0], &is_new[1]);
 		if (parser_process(&current_node, is_new, &lex, cmds))
 			return (NULL);
-		dprintf(2, "lex %s\n", *lex);
 		lex++;
-		dprintf(2, "lex %s\n", *lex);
 	}
 	go_to_up(cmds);
 	return (cmds);

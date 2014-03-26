@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <42sh.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <42sh.h>
 
-void    files_drredir(t_cmds *tree)
+void	files_drredir(t_cmds *tree)
 {
-	int     i;
-	int     fd;
-	int     file_fd;
+	int		i;
+	int		fd;
+	int		file_fd;
 
 	i = 0;
 	if (tree->drredir && tree->drredir[i])
@@ -35,11 +35,11 @@ void    files_drredir(t_cmds *tree)
 	}
 }
 
-void    files_rredir(t_cmds *tree)
+void	files_rredir(t_cmds *tree)
 {
-	int     i;
-	int     fd;
-	int     file_fd;
+	int		i;
+	int		fd;
+	int		file_fd;
 
 	i = 0;
 	if (tree->rredir && tree->rredir[i])
