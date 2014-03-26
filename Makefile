@@ -1,18 +1,27 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
+#    By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/12/21 21:34:01 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/25 21:30:43 by mfassi-f         ###   ########.fr        #
+#    Created: 2013/12/20 16:15:13 by gchateau          #+#    #+#              #
+#    Updated: 2014/03/24 19:51:24 by gchateau         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
+
+# MAKEFILE UI BY mmoustai
 
 NAME = 42sh
-LIBA = lib42sh.a
-TRASH = 42sh.dSYM
+
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -O0 -g3 #-pedantic
+CINCS = -I libs/libft/includes -I ./includes
+CLIBS = -L libs/libft/ -lft -ltermcap
+
+LIB = libs/libft/libft.a
+
+SRCPATH = ./src/
 
 FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_getterm.c ft_getdatas.c ft_getdatas_setenv.c ft_getdatas_setlocal.c \
@@ -37,59 +46,46 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_pipe.c parser.c execution.c cmds.c t_env.c parser_utils.c ft_redir.c \
 		lx_lexer.c lx_tools.c
 
-LPATH =	-L./libs/libft -lft \
-		-L/usr/lib -ltermcap
-HPATH = -Iincludes \
-		-I./libs/libft/includes \
+SRC = $(addprefix $(SRCPATH), $(FILES))
+OBJ = $(SRC:.c=.o)
+FLAG = 0
 
-SRCDIR = ./src/
-HEADER = includes/
-OBJDIR = .obj
-SRCS = $(FILES)
-SRC1 = $(addprefix $(SRCDIR), $(SRCS))
-OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-AR = ar -cq
-CFLAGS = gcc -Wall -Wextra -Werror -O0 -g3
+V = 0
+SKIP_1 :=
+SKIP_0 := \033[A
+SKIP = $(SKIP_$(V))
+C = \033[0;33m
+U = $(C)[$(NAME)]----->\033[0m
 
-# COLORS
-GRN = "\x1b[32;01m"
-YLLW = "\x1b[33;01m"
-NOCOLOR = "\x1b[0m"
+.PHONY: all, clean, fclean, re, .msgcompile
 
-# START RULES
-.PHONY: all clean fclean re
+all: $(NAME)
 
-all: compile_lib $(NAME)
+$(LIB):
+	@make -C libs/libft/
 
-compile_lib:
-	@make -C libs/libft
+$(NAME): $(OBJ) $(LIB)
+	@echo "$(U)$(C)[BUILD]\033[0;32m"
+	@$(CC) -o $@ $(OBJ) $(CFLAGS) $(CINCS) $(CLIBS)
+	@echo "$(SKIP)\033[2K$(SKIP)\033[2K"
+	@echo "$(SKIP)$(U)$(C)[BUILD  :\033[1;32m DONE$(C)]\033[0m"
 
-$(NAME): $(SRC1) $(HEADER)
-	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[all]$(NOCOLOR):'\t''\t'Compilation of $(NAME)
-	@$(CFLAGS) $(HPATH) $(LPATH) $(SRC1) -o $(NAME)
-	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[all]$(NOCOLOR):'\t''\t'$(NAME) built !
-
-$(LIBA): $(OBJS)
-	@echo $(GRN)$(NAME)$(NCLR)$(YLLW)[lib]$(NOCOLOR):'\t''\t'Creation of $(LIBA)
-	@$(AR) $@ $^
-	@ranlib $@
-	
-$(addprefix $(OBJDIR)/, %.o): $(addprefix $(SRCDIR)/, %.c)
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(HPATH) -o $@ -c $^
+%.o: %.c includes
+	@echo "$(U)$(C)[COMPILE: \033[1;31m$<\033[A\033[0m"
+	@echo "\033[0;32m"
+	@$(CC) -o $@ $(CFLAGS) $(CINCS) -c $<
+	@echo "\033[1;31m [.working.]"
+	@echo "$(SKIP)\033[2K\033[A\033[2K$(SKIP)"
 
 clean:
-	@make clean -C libs/libft
-	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR):'\t''\t'Deleting \'.o\' files
-	@rm -rf $(OBJDIR)
+	@echo "[\033[1;33mCLEANING 42SH\033[0m]"
+	@make -C libs/libft/ clean
+	@rm -rf $(OBJ)
 
 fclean:
-	@make fclean -C libs/libft
-	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR):'\t''\t'Deleting \'.o\' files
-	@rm -rf $(OBJDIR) $(TRASH)
-	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[fclean]$(NOCOLOR):'\t''\t'Deleting $(NAME)
-	@rm -rf $(NAME) $(LIBA)
+	@echo "[\033[1;31mREMOVING 42SH\033[0m]"
+	@make -C libs/libft/ fclean
+	@rm -rf $(OBJ)
+	@rm -rf $(NAME)
 
-re:	fclean all
-
-# DO NOT DELETE THIS LINE -- make depends on it
+re: fclean all

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lx_lexer_v2.c                                      :+:      :+:    :+:   */
+/*   lx_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -84,7 +84,7 @@ int			lx_tokopr(char **data, char *str, t_flags *flags)
 		return (shift - 1);
 	}
 	return (0);
-}
+} 
 
 int			lx_flags(char c, t_flags *flags)
 {
@@ -99,6 +99,7 @@ int			lx_flags(char c, t_flags *flags)
 		printf("Sortie de lx_flags avec %d\n", flags->quote);
 		return (1);
 	}
+	/*comment*/
 	return (0);
 }
 
@@ -157,7 +158,6 @@ void		lx_scanner(char *line, char **data)
 
 	i = -1;
 	flags = lx_set_flags();
-	printf("lx_scanner before while, line = %s \n", line);
 	while (line[++i])
 	{
 		//printf("lx_scanner while start, flag is %d\n", flags->quote);
@@ -229,7 +229,6 @@ char		**lx_lexer(char *line)
 	char	**res;
 
 	i = 0;
-	printf("lx_lexer start, line = %s, %p \n", line, line);
 	if (!(data = ft_arrnew(512)))
 		printf("data malloc failed\n");
 	ft_arrayset(data, 512);
