@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 12:08:15 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/24 19:19:41 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:56:48 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    add_token(char **arr, char *token)
 	arr[ft_arrsize(arr)] = ft_strdup(token);
 }
 
-char    **new_arr(size_t size)
+char    **new_arr(int size)
 {
 	char    **arr;
 

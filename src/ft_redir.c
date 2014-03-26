@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:16:13 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 19:21:55 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:59:24 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int ft_redir_left(t_cmds *tree)
 	while (tree->lredir[i])
 		if (get_write_file(tree->lredir[i++], fd))
 			return (-1);
-	close(fd);
+	if (fd != 1)
+		close(fd);
 	if (fd != 1 && (fd = open(buf, O_RDONLY)) == -1)
 		return (ft_error(FTSH_NAME, "open failed.", NULL));
 	if (fd != 1 && dup2(fd, 0) == -1)

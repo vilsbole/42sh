@@ -1,14 +1,14 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+         #
+#    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/12/20 16:15:13 by gchateau          #+#    #+#              #
-#    Updated: 2014/03/24 19:51:24 by gchateau         ###   ########.fr        #
+#    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
+#    Updated: 2014/03/26 21:32:34 by mfassi-f         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 # MAKEFILE UI BY mmoustai
 
@@ -44,7 +44,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_history_add.c ft_history_del.c ft_history_prepare.c ft_history_new.c \
 		ft_history_prev.c ft_history_next.c \
 		ft_pipe.c parser.c execution.c cmds.c t_env.c parser_utils.c ft_redir.c \
-		lx_lexer.c lx_tools.c
+		lx_lexer.c lx_tools.c files_redir.c
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
