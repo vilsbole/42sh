@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/06 04:39:50 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/23 18:11:34 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:58:12 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	ft_prompt_delchar_fwd(t_line *line)
 	char		*dst;
 	char		*src;
 
-	if (line->i == FTSH_MAXLEN_LINE - 2 ||  line->buf[line->i + 1] == '\0')
+	if (line->i == FTSH_MAXLEN_LINE - 2 || line->buf[line->i + 1] == '\0')
 		return ;
 	dst = line->buf + line->i + 1;
 	src = line->buf + line->i + 2;

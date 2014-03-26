@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 20:29:39 by gchateau          #+#    #+#             */
-/*   Updated: 2014/01/29 05:45:40 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:55:37 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_cd_path(char *new, char *path, char *cwd)
 		return (1);
 	if (ft_strichr(path, '/') != 0)
 	{
-		if (ft_strlen(cwd) >= MAXPATHLEN -1)
+		if (ft_strlen(cwd) >= MAXPATHLEN - 1)
 			return (1);
 		ft_strcpy(new, cwd);
 		ft_strcat(new, "/");

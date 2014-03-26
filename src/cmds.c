@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:52:39 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/25 21:27:56 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:29:46 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <libft.h>
 #include <42sh.h>
 
-t_cmds  *new_cmd(void)
+t_cmds	*new_cmd(void)
 {
-	t_cmds  *new;
+	t_cmds	*new;
 
 	new = (t_cmds *)malloc(sizeof(t_cmds));
 	if (new)
@@ -35,7 +35,7 @@ t_cmds  *new_cmd(void)
 	return (new);
 }
 
-void    free_tree(t_cmds **tree)
+void	free_tree(t_cmds **tree)
 {
 	if (!*tree)
 		return ;
@@ -43,6 +43,7 @@ void    free_tree(t_cmds **tree)
 	free_tree(&(*tree)->right);
 	ft_arrdel(&(*tree)->cmd);
 	ft_arrdel(&(*tree)->rredir);
+	ft_arrdel(&(*tree)->drredir);
 	ft_arrdel(&(*tree)->lredir);
 	if ((*tree)->cmd_path)
 		free((*tree)->cmd_path);
@@ -58,7 +59,7 @@ void	free_all_trees(t_cmds **cmds)
 	while (cmds && cmds[i])
 	{
 		tree = cmds + i;
-		while (tree && *tree &&  (*tree)->father)
+		while (tree && *tree && (*tree)->father)
 			*tree = (*tree)->father;
 		free_tree(tree);
 		i++;
@@ -66,11 +67,11 @@ void	free_all_trees(t_cmds **cmds)
 	free(cmds);
 }
 
-void    go_to_up(t_cmds **cmds)
+void	go_to_up(t_cmds **cmds)
 {
-	int     i;
-	t_cmds  *tree = NULL;
-	
+	int		i;
+	t_cmds	*tree;
+
 	i = 0;
 	if (!cmds || *cmds == NULL)
 		return ;
