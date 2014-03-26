@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/25 17:17:22 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/14 18:20:31 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:55:58 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**ft_getdatas_setenv_fill(char ***aarr, char **local)
 
 	i = 2;
 	arr = *aarr;
-	while(local[i + 2] != NULL)
+	while (local[i + 2] != NULL)
 	{
 		arr[i] = ft_strdup(local[i + 2]);
 		if (arr[i] == NULL)

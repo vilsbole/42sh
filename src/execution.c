@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/25 20:56:45 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:31:37 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void    execution(t_cmds *tree)
+void	execution(t_cmds *tree)
 {
 	tree->cmd_path = ft_findexe(get_env()->datas->path, tree->cmd[0]);
 	if (!tree->cmd_path)
@@ -35,10 +35,10 @@ void    execution(t_cmds *tree)
 	}
 }
 
-int exec_cmd(t_cmds *tree)
+int		exec_cmd(t_cmds *tree)
 {
-	pid_t   pid;
-	int     ret;
+	pid_t	pid;
+	int		ret;
 
 	if (ft_redir_right(tree) || ft_redir_left(tree))
 		return (-1);
@@ -63,26 +63,12 @@ int exec_cmd(t_cmds *tree)
 	return (0);
 }
 
-
-void	fill_files(t_cmds *tree)
+void	files_drredir(t_cmds *tree)
 {
-	int i;
-	int fd;
-	int	file_fd;
+	int		i;
+	int		fd;
+	int		file_fd;
 
-	i = 0;
-	if (tree->rredir && tree->rredir[i])
-	{
-		fd = open(TMP_FILE_L, O_RDONLY);
-		while (tree->rredir[i])
-		{
-			file_fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC);
-			get_write_file(TMP_FILE_L, file_fd);
-			close(file_fd);
-			i++;
-		}
-		close(fd);
-	}
 	i = 0;
 	if (tree->drredir && tree->drredir[i])
 	{
@@ -98,10 +84,30 @@ void	fill_files(t_cmds *tree)
 	}
 }
 
-
-int exec_tree(t_cmds *tree)
+void	files_rredir(t_cmds *tree)
 {
-	int	success;
+	int		i;
+	int		fd;
+	int		file_fd;
+
+	i = 0;
+	if (tree->rredir && tree->rredir[i])
+	{
+		fd = open(TMP_FILE_L, O_RDONLY);
+		while (tree->rredir[i])
+		{
+			file_fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC);
+			get_write_file(TMP_FILE_L, file_fd);
+			close(file_fd);
+			i++;
+		}
+		close(fd);
+	}
+}
+
+int		exec_tree(t_cmds *tree)
+{
+	int		success;
 
 	if (!tree)
 		return (0);
@@ -109,6 +115,8 @@ int exec_tree(t_cmds *tree)
 	{
 		if (exec_cmd(tree))
 			return (-1);
+		files_rredir(tree);
+		files_drredir(tree);
 		unlink(TMP_FILE_R);
 		unlink(TMP_FILE_L);
 		success = ft_atoi(ft_getenv(get_env()->datas->local, "?"));
@@ -122,21 +130,25 @@ int exec_tree(t_cmds *tree)
 	return (0);
 }
 
-void    exec_trees(void)
+void	exec_trees(void)
 {
-	t_cmds  *tree;
+	int		i;
 
-	while (get_env()->cmds && *(get_env()->cmds))
+	i = 0;
+	while (get_env()->cmds && get_env()->cmds[i])
 	{
-		if (!exec_tree(*(get_env()->cmds)))
+		if (!exec_tree(get_env()->cmds[i]))
 		{
-			tree = *(get_env()->cmds);
-			get_env()->cmds++;
-			free_tree(&tree);
+			i++;
+			//free_tree(&tree);
 			dup2(get_env()->fd_in, 0);
 			dup2(get_env()->fd_out, 1);
 		}
 		else
-			return ; /* ERROR */
+		{
+			free_all_trees(get_env()->cmds);
+			return ;
+		}
 	}
+	free_all_trees(get_env()->cmds);
 }

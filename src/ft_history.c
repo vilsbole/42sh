@@ -6,13 +6,12 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/18 17:10:51 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 17:21:31 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:56:18 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <42sh.h>
-
 
 int			ft_history(t_datas *datas, char **cmd)
 {
