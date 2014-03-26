@@ -12,6 +12,7 @@
 
 NAME = 42sh
 LIBA = lib42sh.a
+TRASH = 42sh.dSYM
 
 FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_getterm.c ft_getdatas.c ft_getdatas_setenv.c ft_getdatas_setlocal.c \
@@ -37,11 +38,9 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		lx_lexer.c lx_tools.c
 
 LPATH =	-L./libs/libft -lft \
-		-L./libs/libprt -lprt \
 		-L/usr/lib -ltermcap
 HPATH = -Iincludes \
 		-I./libs/libft/includes \
-		-I./libs/libprt/includes \
 
 SRCDIR = ./src/
 HEADER = includes/
@@ -64,7 +63,6 @@ all: compile_lib $(NAME)
 
 compile_lib:
 	@make -C libs/libft
-	@make -C libs/libprt
 
 $(NAME): $(SRC1) $(HEADER)
 	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[all]$(NOCOLOR):'\t''\t'Compilation of $(NAME)
@@ -82,15 +80,13 @@ $(addprefix $(OBJDIR)/, %.o): $(addprefix $(SRCDIR)/, %.c)
 
 clean:
 	@make clean -C libs/libft
-	@make clean -C libs/libprt
 	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR):'\t''\t'Deleting \'.o\' files
 	@rm -rf $(OBJDIR)
 
 fclean:
 	@make fclean -C libs/libft
-	@make fclean -C libs/libprt
 	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[clean]$(NOCOLOR):'\t''\t'Deleting \'.o\' files
-	@rm -rf $(OBJDIR) 42sh.dSYM
+	@rm -rf $(OBJDIR) $(TRASH)
 	@echo $(GRN)$(NAME)$(NOCOLOR)$(YLLW)[fclean]$(NOCOLOR):'\t''\t'Deleting $(NAME)
 	@rm -rf $(NAME) $(LIBA)
 
