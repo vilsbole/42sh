@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:31:37 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:55:18 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,48 +63,6 @@ int		exec_cmd(t_cmds *tree)
 	return (0);
 }
 
-void	files_drredir(t_cmds *tree)
-{
-	int		i;
-	int		fd;
-	int		file_fd;
-
-	i = 0;
-	if (tree->drredir && tree->drredir[i])
-	{
-		fd = open(TMP_FILE_L, O_RDONLY);
-		while (tree->drredir[i])
-		{
-			file_fd = open(tree->drredir[i], O_RDWR | O_CREAT | O_APPEND);
-			get_write_file(TMP_FILE_L, file_fd);
-			close(file_fd);
-			i++;
-		}
-		close(fd);
-	}
-}
-
-void	files_rredir(t_cmds *tree)
-{
-	int		i;
-	int		fd;
-	int		file_fd;
-
-	i = 0;
-	if (tree->rredir && tree->rredir[i])
-	{
-		fd = open(TMP_FILE_L, O_RDONLY);
-		while (tree->rredir[i])
-		{
-			file_fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC);
-			get_write_file(TMP_FILE_L, file_fd);
-			close(file_fd);
-			i++;
-		}
-		close(fd);
-	}
-}
-
 int		exec_tree(t_cmds *tree)
 {
 	int		success;
@@ -140,7 +98,6 @@ void	exec_trees(void)
 		if (!exec_tree(get_env()->cmds[i]))
 		{
 			i++;
-			//free_tree(&tree);
 			dup2(get_env()->fd_in, 0);
 			dup2(get_env()->fd_out, 1);
 		}

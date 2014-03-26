@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/21 21:34:01 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/25 21:30:43 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/26 20:54:07 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_history_add.c ft_history_del.c ft_history_prepare.c ft_history_new.c \
 		ft_history_prev.c ft_history_next.c \
 		ft_pipe.c parser.c execution.c cmds.c t_env.c parser_utils.c ft_redir.c \
-		lx_lexer.c lx_tools.c
+		lx_lexer.c lx_tools.c files_redir.c
 
 LPATH =	-L./libs/libft -lft \
 		-L/usr/lib -ltermcap

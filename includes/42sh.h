@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/26 18:20:48 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:56:46 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,8 @@ int     ft_pipe(t_cmds *tree);
 void    no_such_file(char *file);
 void    execution(t_cmds *tree);
 void    exec_trees(void);
+void	files_drredir(t_cmds *tree);
+void	files_rredir(t_cmds *tree);
 void    call_child(int *p, t_cmds *tree);
 void    call_father(int *p, t_cmds *tree);
 void    free_tree(t_cmds **tree);
@@ -225,7 +227,7 @@ void    free_all_trees(t_cmds **cmds);
 void    go_to_up(t_cmds **cmds);
 void    add_token(char **arr, char *token);
 char    *get_file_content(int fd);
-char    **new_arr(size_t size);
+char    **new_arr(int size);
 t_env	*get_env(void);
 t_cmds  *new_cmd(void);
 t_cmds	**parser(char **lex);
