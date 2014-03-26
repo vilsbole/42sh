@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include "libft.h"
-# include "libprt.h"
 
 # define S_NAME	"[msh]"
 # define PROMPT "[msh] > "
