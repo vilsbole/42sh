@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lx_count.c                                         :+:      :+:    :+:   */
+/*   lx_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evilsbol <evilsbol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,7 +20,7 @@ int		lx_count(char *str, char c)
 	i = 0;
 	count = 0;
 	while (str[i] != '\0')
-		if (str[i++] == c)
-			count++;
+		if (str[i++] == c) 
+			count++; 
 	return (count);
 }
