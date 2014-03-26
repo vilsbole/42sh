@@ -6,13 +6,11 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 23:12:47 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/25 20:06:18 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/26 05:18:56 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-#include <stdio.h> //bah
 
 void		ft_arrayset(char **array, int size)
 {
@@ -39,6 +37,21 @@ void		lx_closetok(char **data, t_flags *flags)
 	}
 }
 
+t_flags		*lx_set_flags(void)
+{
+	t_flags		*flags;
+
+	flags = NULL;
+	if ((flags = (t_flags *)malloc(sizeof(t_flags))))
+	{
+		flags->index = 0;
+		flags->quote = 0;
+		flags->token = 0;
+		flags->len = 0;
+	}
+	return (flags);
+}
+
 void		lx_endinput(char **data, t_flags *flags)
 {
 //	if (flags->quote)
@@ -59,11 +72,9 @@ void		lx_addtoword(char **data, char c, t_flags *flags)
 		while (data[flags->index][i])
 			i++;
 		data[flags->index][i] = c;
-//		printf("Apres added : %s\n", data[flags->index]);
 	}
 	else
 	{
-//		printf("Bonjour index = %d, c = %c \n", flags->index, c);
 		data[flags->index][0] = c;
 		flags->token = 1;
 	}
@@ -79,12 +90,11 @@ int			lx_tokopr(char **data, char *str, t_flags *flags)
 		if (flags->token)
 			lx_closetok(data, flags);
 		shift = (str[1] == str[0] ? 2 : 1);
-		printf("lx_tokopr on index %d with shift : %d\n", flags->index, shift);
 		data[flags->index++] = ft_strsub(str, 0, shift);
 		return (shift - 1);
 	}
 	return (0);
-} 
+}
 
 int			lx_flags(char c, t_flags *flags)
 {
@@ -96,10 +106,9 @@ int			lx_flags(char c, t_flags *flags)
 			flags->quote = flags->quote == 2 ? 0 : 2;
 		else
 			flags->quote = 3;
-		printf("Sortie de lx_flags avec %d\n", flags->quote);
+		pr_printf("Sortie de lx_flags avec %d\n", flags->quote);
 		return (1);
 	}
-	/*comment*/
 	return (0);
 }
 
@@ -108,8 +117,10 @@ int			lx_backslash(char **data, char c, t_flags *flags)
 	if (c == '$' || c == '"' || c == '\\')
 	{
 		lx_addtoword(data, c, flags);
+		flags->quote = 0;
 		return (1);
 	}
+	flags->quote = 0;
 	return (0);
 }
 
@@ -118,7 +129,7 @@ int			lx_dquote(char **data, char *str, t_flags *flags)
 	int		i;
 
 	i = 0;
-	printf("lx_dquote on char %c\n", *str);
+	pr_printf("lx_dquote on char %c\n", *str);
 	while (str[i] && str[i] != '"')
 	{
 		if (str[i] != '\\' && str[i] != '$')
@@ -136,21 +147,6 @@ int			lx_dquote(char **data, char *str, t_flags *flags)
 	return (i);
 }
 
-t_flags		*lx_set_flags(void)
-{
-	t_flags		*flags;
-
-	flags = NULL;
-	if ((flags = (t_flags *)malloc(sizeof(t_flags))))
-	{
-		flags->index = 0;
-		flags->quote = 0;
-		flags->token = 0;
-		flags->len = 0;
-	}
-	return (flags);
-}
-
 void		lx_scanner(char *line, char **data)
 {
 	int			i;
@@ -160,7 +156,6 @@ void		lx_scanner(char *line, char **data)
 	flags = lx_set_flags();
 	while (line[++i])
 	{
-		//printf("lx_scanner while start, flag is %d\n", flags->quote);
 		if (flags->quote == 0 && lx_count(BLANK, line[i]))
 		{
 			lx_closetok(data, flags);
@@ -168,16 +163,15 @@ void		lx_scanner(char *line, char **data)
 		}
 		if (flags->quote == 0 && lx_tokopr(data, &line[i], flags))
 			i++;
-		i += lx_flags(line[i], flags);
+		i += lx_flags(line[i], flags);		/* A replacer ? */
 		if (flags->quote == 1)
 			i += lx_dquote(data, &line[i], flags);
 		if (flags->quote == 3)
 			i += lx_backslash(data, line[i], flags);
 		if (line[i] == '\n')
 			lx_closetok(data, flags);
-//		printf("char before addtw : %c\n", line[i]);
-		if ((flags->quote == 0 && lx_count(WORD, line[i]) == 0)
-			|| flags->quote == 2)
+		if ((flags->quote == 0 && lx_count(WORD, line[i]) == 0) || flags->quote == 2)
+//			&& line[i])
 			lx_addtoword(data, line[i], flags);
 	}
 	lx_endinput(data, flags);
@@ -230,12 +224,11 @@ char		**lx_lexer(char *line)
 
 	i = 0;
 	if (!(data = ft_arrnew(512)))
-		printf("data malloc failed\n");
+		pr_printf("data malloc failed\n");
 	ft_arrayset(data, 512);
-	printf("lx_lexer start, line = %s, %p \n", line, line);
 	lx_scanner(line, data);
 	while (data[i] && data[i][0])
-		printf("word: %s\n", data[i++]);
+		pr_printf("word: %s\n", data[i++]);
 	res = lx_arrdup(data);
 	ft_arrdel(&data);
 	return (res);
