@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 22:42:00 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 18:08:05 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:35:46 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			implemented_function(t_datas *datas, char **cmd)
 	{
 		if (tmp != cmd[0])
 			ft_strdel(&tmp);
-		return (-1);
+		ft_exit(datas, ft_atoi(cmd[1]));
 	}
 	return (ft_find_blt(datas, fblt, cmd, &tmp));
 }
