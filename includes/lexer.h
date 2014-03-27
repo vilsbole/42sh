@@ -6,7 +6,7 @@
 /*   By: evilsbol <evilsbol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 14:22:43 by evilsbol          #+#    #+#             */
-/*   Updated: 2014/03/27 04:42:42 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:48:44 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,24 @@
 
 typedef struct	s_flags
 {
-	int		index;
-	int		quote;
-	int		token;
-	int		len;
+	int			index;
+	int			quote;
+	int			token;
 }				t_flags;
 
-/*
-** lx_exec
-*/
-char		**lx_lexer(char *line);
-int			lx_count(char *str, char c);
-void		lx_arrayset(char **array, int size);
-int			lx_arrsize(char **arr);
-char		**lx_arrdup(char **arr);
-t_flags		*lx_set_flags(void);
+char			**lx_lexer(char *line);
+int				lx_backslash(char **data, char *str, t_flags *flags);
+int				lx_squote(char **data, char *str, t_flags *flags);
+int				lx_dquote(char **data, char *str, t_flags *flags);
+int				lx_endinput(char **data, t_flags *flags);
+void			lx_addtoword(char **data, char c, t_flags *flags);
+void			lx_closetok(char **data, t_flags *flags);
+int				lx_tokopr(char **data, char *str, t_flags *flags);
+int				lx_count(char *str, char c);
+void			ft_arrayset(char **array, int size);
+int				lx_arrsize(char **arr);
+char			**lx_arrdup(char **arr);
+int				lx_flags(char c, t_flags *flags);
+t_flags			*lx_set_flags(void);
 
-#endif /* !LEXER_H */
+#endif

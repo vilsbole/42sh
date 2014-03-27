@@ -6,7 +6,7 @@
 /*   By: evilsbol <evilsbol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 16:24:02 by evilsbol          #+#    #+#             */
-/*   Updated: 2014/03/27 02:34:00 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:36:46 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ int			lx_count(char *str, char c)
 			count++;
 	}
 	return (count);
+}
+
+void		ft_arrayset(char **array, int size)
+{
+	while (size--)
+	{
+		if (!(array[size] = ft_strnew(1024)))
+			ft_putendl("42sh : Oups, a malloc failed");
+	}
 }
 
 int			lx_arrsize(char **arr)
@@ -62,4 +71,18 @@ char		**lx_arrdup(char **arr)
 		i++;
 	}
 	return (new);
+}
+
+t_flags		*lx_set_flags(void)
+{
+	t_flags		*flags;
+
+	flags = NULL;
+	if ((flags = (t_flags *)malloc(sizeof(t_flags))))
+	{
+		flags->index = 0;
+		flags->quote = 0;
+		flags->token = 0;
+	}
+	return (flags);
 }
