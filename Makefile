@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 20:21:35 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/27 20:57:34 by gchateau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,7 @@ SRCPATH = ./src/
 
 FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_getterm.c ft_getdatas.c ft_getdatas_setenv.c ft_getdatas_setlocal.c \
-		ft_cd.c ft_cd_back.c ft_cd_check.c ft_cd_home.c ft_cd_path.c \
-		ft_cd_putpath.c \
-		ft_cd_update.c \
+		ft_cd.c ft_cd_set.c ft_cd_check.c ft_cd_putpath.c ft_cd_update.c \
 		ft_env.c ft_env_exec.c ft_env_exit.c ft_env_setav.c ft_env_setep.c \
 		ft_env_print.c \
 		implemented_function.c \

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd_back.c                                       :+:      :+:    :+:   */
+/*   ft_cd_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/26 20:29:39 by gchateau          #+#    #+#             */
-/*   Updated: 2014/01/29 05:45:40 by gchateau         ###   ########.fr       */
+/*   Created: 2014/03/27 20:06:00 by gchateau          #+#    #+#             */
+/*   Updated: 2014/03/27 20:38:56 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 #include <42sh.h>
 #include <ftcd.h>
 
-int		ft_cd_back(t_datas *datas, char *new)
+int		ft_cd_set(t_datas *datas, char *opts, char *str, char *new)
 {
-	int			len;
-	char		*tmp;
+	char	cwd[MAXPATHLEN];
 
-	tmp = ft_getenv(datas->local, "OWD");
-	len = ft_strlen(tmp);
-	if (tmp == NULL || len == 0 || len >= MAXPATHLEN)
-		return (1);
-	ft_strcpy(new, tmp);
+	ft_bzero(cwd, MAXPATHLEN);
+	ft_strcpy(cwd, ft_getenv(datas->local, "CWD"));
 	ft_realpath(new);
-	return (0);
+	if (ft_cd_check(new) != 0)
+		return (1);
+	if ((str != NULL && ft_strcmp(str, "-") != 0)
+		|| ft_strichr(opts, 'l') >= 0 || ft_strichr(opts, 'n') >= 0
+		|| ft_strichr(opts, 'p') >= 0 || ft_strichr(opts, 'v') >= 0)
+		ft_cd_putpath(datas, opts, new);
+	return (ft_cd_update(datas, opts, new, cwd));
 }
