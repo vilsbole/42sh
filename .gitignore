@@ -2,3 +2,4 @@
 42sh.dSYM
 *.o
 *.a
+.bocal.zsh
