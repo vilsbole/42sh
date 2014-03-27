@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 16:39:28 by gchateau         ###   ########.fr        #
+#    Updated: 2014/03/27 17:58:51 by kslimane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_pipe.c \
 		parser.c parser2.c execution.c cmds.c t_env.c parser_utils.c \
 		ft_redir.c \
-		lx_lexer.c lx_tools.c files_redir.c utils.c
+		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
