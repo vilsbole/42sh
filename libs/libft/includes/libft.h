@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/21 14:32:40 by gchateau          #+#    #+#             */
-/*   Updated: 2014/01/25 17:43:55 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:22:49 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
-
-typedef struct		s_clist
-{
-	void			*content;
-	size_t			content_size;
-	struct s_clist	*prev;
-	struct s_clist	*next;
-}					t_clist;
-
-typedef struct		s_dlist
-{
-	void			*content;
-	size_t			content_size;
-	struct s_dlist	*prev;
-	struct s_dlist	*next;
-}					t_dlist;
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
-/*
-** ARRAY functions (char **)
-*/
+# include "libft_struct.h"
 
 int		ft_arrsize(char **arr);
 int		ft_arradd(char ***arr, char *str);
@@ -51,11 +25,6 @@ void	ft_arriter(char **arr, void (*f)(char *));
 void	ft_arriteri(char **arr, void (*f)(unsigned int, char *));
 char	**ft_arrnew(size_t size);
 char	**ft_arrdup(char **arr);
-
-/*
-** CHECK functions
-*/
-
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -64,11 +33,6 @@ int		ft_isprint(int c);
 int		ft_isspace(int c);
 int		ft_isupper(int c);
 int		ft_islower(int c);
-
-/*
-** LIST functions (t_clist: circular)
-*/
-
 void	ft_clstadd_after(t_clist **aclst, t_clist *new);
 void	ft_clstadd_before(t_clist **aclst, t_clist *new);
 void	ft_clstdel(t_clist **aclst, void (*del)(void *, size_t));
@@ -76,11 +40,6 @@ void	ft_clstdelone(t_clist **aclst, void (*del)(void *, size_t));
 void	ft_clstiter(t_clist *clst, void (*f)(t_clist *elem));
 size_t	ft_clstlen(t_clist *clst);
 t_clist	*ft_clstnew(void const *content, size_t content_size);
-
-/*
-** LIST functions (t_dlist: double link)
-*/
-
 void	ft_dlstadd_after(t_dlist **adlst, t_dlist *new);
 void	ft_dlstadd_before(t_dlist **adlst, t_dlist *new);
 void	ft_dlstadd_end(t_dlist **adlst, t_dlist *new);
@@ -96,11 +55,6 @@ size_t	ft_dlstlen(t_dlist *dlst);
 size_t	ft_dlstlen_fwd(t_dlist *dlst);
 size_t	ft_dlstlen_rwd(t_dlist *dlst);
 t_dlist	*ft_dlstnew(void const *content, size_t content_size);
-
-/*
-** LIST functions (t_list: simple link)
-*/
-
 int		ft_lstlen(t_list *lst);
 void	ft_lstadd(t_list **alst, t_list *new);
 void	ft_lstadd_end(t_list *alst, t_list *new);
@@ -109,11 +63,6 @@ void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 t_list	*ft_lstnew(void const *content, size_t content_size);
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
-/*
-** MEMORY functions
-*/
-
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	ft_memdel(void **ap);
 void	*ft_memalloc(size_t size);
@@ -122,11 +71,6 @@ void	*ft_memccpy(void *s1, const void *s2, int c, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memmove(void *s1, const void *s2, size_t n);
-
-/*
-** PUT functions
-*/
-
 void	ft_putchar(char c);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl(const char *s);
@@ -135,11 +79,6 @@ void	ft_putnbr(int n);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr(const char *s);
 void	ft_putstr_fd(const char *s, int fd);
-
-/*
-** STR functions
-*/
-
 size_t	ft_strlcat(char *dst, const char *src, size_t siz);
 int		ft_strlen(const char *s);
 int		ft_strichr(const char *s, int c);
@@ -174,11 +113,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strtolower(char *s);
 char	*ft_strtoupper(char *s);
 char	**ft_strsplit(char const *s, char c);
-
-/*
-** TOOLS functions
-*/
-
 int		ft_atoi(const char *s);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
@@ -189,4 +123,4 @@ char	*ft_realpath(char *path);
 char	*ft_implode(char **arr, const char *str);
 char	**ft_explode(const char *s, const char *str);
 
-#endif /* !LIBFT_H */
+#endif
