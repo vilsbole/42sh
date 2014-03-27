@@ -6,7 +6,7 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 23:12:47 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/27 02:30:23 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 04:44:32 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		lx_addtoword(char **data, char c, t_flags *flags)
 	int		i;
 
 	i = 0;
+	printf("lx_addtw on char %c\n", c);
 	if (flags->token)
 	{
 		while (data[flags->index][i])
@@ -118,23 +119,42 @@ int			lx_flags(char c, t_flags *flags)
 			flags->quote = flags->quote == 1 ? 0 : 1;
 		else if (c == '\'')
 			flags->quote = flags->quote == 2 ? 0 : 2;
-		else
-			flags->quote = 3;
+//		else
+//			flags->quote = 3;
 		return (1);
 	}
+//	flags->quote = 0;
 	return (0);
 }
 
-int			lx_backslash(char **data, char c, t_flags *flags)
+int			lx_backslash(char **data, char *str, t_flags *flags)
 {
-	if (c == '$' || c == '"' || c == '\\')
+	printf("lx_backslash start\n");
+	if (str[1] && (str[1] == '"' || str[1] == '\\'))
 	{
-		lx_addtoword(data, c, flags);
-		flags->quote = 0;
-		return (1);
+		lx_addtoword(data, str[1], flags);
+//		if (str[1])
+//		{
+//			lx_flags(str[1], flags);
+//			return (2);
+//		}
+		return (2);
 	}
 	flags->quote = 0;
 	return (0);
+}
+
+int			lx_squote(char **data, char *str, t_flags *flags)
+{
+	int		i;
+
+	i = 0;
+	ft_putendl("lx_squote");
+	while (str[i] && str[i] != '\'')
+		lx_addtoword(data, str[i++], flags);
+	if (str[i] == '\'')
+		flags->quote = 0;
+	return (i);
 }
 
 int			lx_dquote(char **data, char *str, t_flags *flags)
@@ -147,8 +167,10 @@ int			lx_dquote(char **data, char *str, t_flags *flags)
 	{
 		if (str[i] != '\\')
 			lx_addtoword(data, str[i], flags);
-		else if (str[i] == '\\' && str[i + 1])
+		else if (str[i] == '\\' && str[i + 1] && lx_count(BSLASH, str[i + 1]))
 			lx_addtoword(data, str[++i], flags);
+		else if (str[i] == '\\')
+			lx_addtoword(data, str[i], flags);
 		i++;
 	}
 	if (str[i] == '"')
@@ -165,6 +187,7 @@ int			lx_scanner(char *line, char **data)
 	flags = lx_set_flags();
 	while (line[++i])
 	{
+		printf("lx_scan on char %c with flag %d\n", line[i], flags->quote);
 		if (flags->quote == 0 && lx_count(BLANK, line[i]))
 		{
 			lx_closetok(data, flags);
@@ -172,21 +195,22 @@ int			lx_scanner(char *line, char **data)
 		}
 		if (flags->quote == 0 && (lx_tokopr(data, &line[i], flags) || line[i] == ';'))
 			i++;
+		if (line[i] == '\\')
+			i += lx_backslash(data, &line[i], flags);
 		i += lx_flags(line[i], flags);
-		if (flags->quote == 3)
-			i += lx_backslash(data, line[i], flags);
+		if (flags->quote == 2)
+			i += lx_squote(data, &line[i], flags);
 		if (flags->quote == 1)
 			i += lx_dquote(data, &line[i], flags);
 		if (line[i] == '\n')
 			lx_closetok(data, flags);
-		if (((flags->quote == 0 && lx_count(WORD, line[i]) == 0)
-			|| flags->quote == 2) && line[i])
+		if (line[i] && flags->quote == 0 && lx_count(WORD, line[i]) == 0)
 			lx_addtoword(data, line[i], flags);
 	}
-	if (lx_endinput(data, flags))
-		return (-1);
 	if (flags)
 		free(flags);
+	if (lx_endinput(data, flags))
+		return (-1);
 	return (0);
 }
 
