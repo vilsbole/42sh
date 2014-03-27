@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:28:10 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:20:53 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 20:20:42 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	call_father(int *p, t_cmds *tree)
 int		grand_father(int *p, t_cmds *tree, int pid)
 {
 	wait(&pid);
+	if (!ft_strcmp(tree->right->cmd[0], "exit"))
+		ft_exit(get_env()->datas, ft_atoi(tree->right->cmd[1]));
 	pid = fork();
 	if (pid == -1)
 	{

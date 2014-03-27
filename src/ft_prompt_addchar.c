@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/25 17:43:50 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 20:54:31 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_prompt_addchar(t_datas *datas, t_line *line, char c)
 		ft_tputs("bl");
 		return ;
 	}
-	if (line->i + 1 != '\0')
+	if (line->buf[line->i + 1] != '\0')
 	{
 		dst = line->buf + line->i + 2;
 		src = line->buf + line->i + 1;
