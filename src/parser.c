@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:35:02 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 01:08:38 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
 	}
 }
 
-int		parser_process(t_cmds **current_node, int *is_new, char ***lex, 
+int		parser_process(t_cmds **current_node, int *is_new, char ***lex,
 						t_cmds **cmds)
 {
 	int res;
@@ -111,6 +111,8 @@ t_cmds	**parser(char **lex)
 	t_cmds  **current_tree;
 	t_cmds  *current_node;
 
+	if (!lex)
+		return (NULL);
 	is_new[0] = FALSE;
 	is_new[1] = TRUE;
 	cmds = (t_cmds **)ft_memalloc(sizeof(t_cmds *) * nb_semicolon(lex));

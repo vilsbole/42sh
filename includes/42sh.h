@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/26 20:56:46 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:10:39 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,10 @@ void		call_father(int *p, t_cmds *tree);
 void		free_tree(t_cmds **tree);
 void		free_all_trees(t_cmds **cmds);
 void		go_to_up(t_cmds **cmds);
+void		replace_var(char **arr);
 void		add_token(char **arr, char *token);
 char		*get_file_content(int fd);
+char		*get_tmpdir(char *file, char *buf);
 char		**new_arr(int size);
 t_env		*get_env(void);
 t_cmds  	*new_cmd(void);

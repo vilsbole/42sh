@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/26 21:32:34 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/27 06:16:42 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 		ft_history_prev.c ft_history_next.c \
 		ft_pipe.c \
 		parser.c parser2.c execution.c cmds.c t_env.c parser_utils.c ft_redir.c \
-		lx_lexer.c lx_tools.c files_redir.c
+		lx_lexer.c lx_tools.c files_redir.c parse_var.c
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
@@ -60,7 +60,21 @@ U = $(C)[$(NAME)]----->\033[0m
 
 .PHONY: all, clean, fclean, re, .msgcompile
 
-all: $(NAME)
+all: coffee $(NAME)
+
+coffee:
+	@echo ""
+	@echo "ENJOY A GOOD COFFEE WHILE COMPILING:"
+	@echo ""
+	@echo "     )))  (((     "
+	@echo "    (((  )))      "
+	@echo "     )))  (((     "
+	@echo "  ______________  "
+	@echo "  \            /_ "
+	@echo "   \          /  |"
+	@echo "    \        /--- "
+	@echo "   ------------   "
+	@echo ""
 
 $(LIB):
 	@make -C libs/libft/

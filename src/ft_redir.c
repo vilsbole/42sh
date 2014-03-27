@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:16:13 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:59:24 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:06:34 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int ft_redir_left(t_cmds *tree)
 		fd = 1;
 	else if ((fd = open(buf, O_RDWR | O_CREAT | O_TRUNC)) == -1 && chmod(buf, S_IRWXU))
 		return (ft_error(FTSH_NAME, "open failed.", NULL));
+	printf("je suis  a gauche\n");
 	while (tree->lredir[i])
 		if (get_write_file(tree->lredir[i++], fd))
 			return (-1);
@@ -119,6 +120,7 @@ int ft_redir_right(t_cmds *tree)
 		&& (!tree->drredir || (tree->drredir && !tree->drredir[0])))
 		return (0);
 	fd = open(get_tmpdir(TMP_FILE_R, buf), O_RDWR | O_TRUNC | O_CREAT);
+	printf("je suis  a droite\n");
 	if (fd == -1)
 	{
 		ft_putstr_fd("42sh: open failed.\n", 2);
