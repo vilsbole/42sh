@@ -1,0 +1,5 @@
+42sh
+42sh.dSYM
+*.o
+*.a
+.bocal.zsh

@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 22:42:00 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 20:07:25 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:56:58 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static int	ft_find_blt(t_datas *datas, t_fblt **fblt, char **cmd, char **tmp)
 {
-	int			i;
-	int			res;
+	int				i;
+	int				res;
 
 	i = 0;
 	while (fblt[i] != NULL)
@@ -40,13 +40,13 @@ static int	ft_find_blt(t_datas *datas, t_fblt **fblt, char **cmd, char **tmp)
 
 int			implemented_function(t_datas *datas, char **cmd)
 {
-	char		*tmp;
-	t_fblt		*fblt[] =
-	{
-		&ft_cd, &ft_echo, &ft_history, &ft_env, &ft_setenv, &ft_unsetenv,
-		&ft_set, &ft_unset, &ft_color, NULL
-	};
+	char			*tmp;
+	static t_fblt	*fblt[10] =
 
+	{
+	&ft_cd, &ft_echo, &ft_history, &ft_env, &ft_setenv, &ft_unsetenv,
+	&ft_set, &ft_unset, &ft_color, NULL
+	};
 	tmp = ft_strtolower(ft_strdup(cmd[0]));
 	if (tmp == NULL)
 		tmp = ft_strtolower(cmd[0]);

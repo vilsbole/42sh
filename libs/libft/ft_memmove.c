@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/23 15:56:21 by gchateau          #+#    #+#             */
-/*   Updated: 2013/12/02 12:43:57 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:02:46 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	ft_memmove_bwd(unsigned char *s1, const unsigned char *s2, size_t n)
 {
-	size_t		i;
+	size_t				i;
 
 	i = n - 1;
 	while (i--)
@@ -24,7 +24,7 @@ static void	ft_memmove_bwd(unsigned char *s1, const unsigned char *s2, size_t n)
 
 static void	ft_memmove_fwd(unsigned char *s1, const unsigned char *s2, size_t n)
 {
-	size_t		i;
+	size_t				i;
 
 	i = 0;
 	while (i < n)
@@ -34,7 +34,7 @@ static void	ft_memmove_fwd(unsigned char *s1, const unsigned char *s2, size_t n)
 	}
 }
 
-void	*ft_memmove(void *s1, const void *s2, size_t n)
+void		*ft_memmove(void *s1, const void *s2, size_t n)
 {
 	unsigned char		*tmp1;
 	const unsigned char	*tmp2;

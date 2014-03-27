@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 18:06:04 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:56:14 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,20 @@
 
 static void	ft_prompt_readkey_handler(t_datas *datas, char *key)
 {
-	int			i;
-	t_fkey		*fkey[] =
-	{
-		&ft_move_home, &ft_move_end, &ft_history_next, &ft_history_prev,
-		&ft_move_left, &ft_move_right, &ft_move_next, &ft_move_prev,
-		&ft_move_up, &ft_move_down, &ft_prompt_ctrld,
-		&ft_prompt_autocomplete, &ft_prompt_ctrlr, NULL
-	};
+	int				i;
+	static t_fkey	*fkey[14] =
 
+	{
+	&ft_move_home, &ft_move_end, &ft_history_next, &ft_history_prev,
+	&ft_move_left, &ft_move_right, &ft_move_next, &ft_move_prev,
+	&ft_move_up, &ft_move_down, &ft_prompt_ctrld,
+	&ft_prompt_autocomplete, &ft_prompt_ctrlr, NULL
+	};
 	if (ft_strlen(key) == 0)
 	{
 		ft_tputs("bl");
 		return ;
 	}
-
 	i = 0;
 	while (fkey[i] != NULL && (fkey[i])(datas, datas->prompt.line, key) == -1)
 		i++;
@@ -38,7 +37,7 @@ static void	ft_prompt_readkey_handler(t_datas *datas, char *key)
 
 char		*ft_prompt_readkey(t_datas *datas)
 {
-	char		key[7];
+	char			key[7];
 
 	if (!FLAG_ISNOENV(datas->flags) && FLAG_ISCOLOR(datas->flags))
 		ft_putstr(FTSH_HWHITE);

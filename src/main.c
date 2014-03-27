@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/25 00:22:40 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:36:37 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	ft_parser_load(t_datas *datas)
 {
 	char		**tmp;
 
-//	tmp = ft_cmdsplit(datas->prompt.buffer);
 	tmp = lx_lexer(datas->prompt.buffer);
 	get_env()->cmds = parser(tmp);
 	ft_arrdel(&tmp);
@@ -57,17 +56,16 @@ int			main(int ac, char **av, char **ep)
 		return (ft_error(FTSH_NAME, "running failed.", NULL));
 	if (ac > 2 && ft_strcmp(av[1], "-d") == 0)
 		ft_main_debug(datas, av);
-	ft_shell_start(datas);
 	ft_signal();
-	get_env()->fd_in = dup(0);
-	get_env()->fd_out = dup(1);
-	get_env()->datas = datas;
 	while (42)
 	{
+		ft_shell_start(datas);
 		if (ft_prompt(datas, 1) == NULL)
 			continue ;
+		ft_shell_end(datas);
 		ft_error(FTSH_NAME, "\033[1;31mBUFFER\033[0m", datas->prompt.buffer);
 		ft_parser_load(datas);
+		ft_magic(datas);
 	}
 	return (0);
 }

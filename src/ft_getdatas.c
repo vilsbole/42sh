@@ -6,10 +6,11 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/25 17:17:22 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/25 00:10:23 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:36:28 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <term.h>
 #include <unistd.h>
 #include <libft.h>
 #include <42sh.h>
@@ -65,6 +66,18 @@ t_datas			*ft_getdatas(char **ep)
 		if (ft_getdatas_init(&datas, ep) != 0)
 			return (NULL);
 		ft_getdatas_init2(&datas, ep);
+		if (tgetent(NULL, ft_getenv(datas.local, "TERM")) < 1)
+		{
+			if (tgetent(NULL, "vt100") < 0)
+				datas.flags &= ~FLAG_TERM;
+			else
+				datas.flags |= FLAG_TERM;
+		}
+		else
+			datas.flags |= FLAG_TERM;
+		get_env()->fd_in = dup(0);
+		get_env()->fd_out = dup(1);
+		get_env()->datas = &datas;
 		ptr = &datas;
 	}
 	return (ptr);

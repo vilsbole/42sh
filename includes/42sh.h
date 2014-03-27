@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/26 20:56:46 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:40:24 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@
 # define FLAG_TERM				(1)
 # define FLAG_COLOR				(2)
 # define FLAG_NOENV				(4)
+# define FLAG_ADVERT			(8)
 
 # define FLAG_ISTERM(fl)		((fl & FLAG_TERM) != 0)
 # define FLAG_ISCOLOR(fl)		((fl & FLAG_COLOR) != 0)
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
+# define FLAG_ISADVERT(fl)		((fl & FLAG_ADVERT) != 0)
 
-typedef struct      s_cmds
+typedef struct		s_cmds
 {
 	int				type;
 	int				flag;
@@ -124,7 +126,6 @@ typedef int			(t_fblt) (t_datas *, char **);
 
 typedef int			(t_fkey) (t_datas *, t_line *, char *);
 
-
 /*
 ** SHELL UTILITY FUNCTIONS
 */
@@ -138,6 +139,7 @@ int				ft_setvar(char ***aarr, char *key, char *val);
 int				ft_delvar(char **arr, char *key);
 int				ft_putpath(char **env, char *path, int nl);
 int				ft_check_daccess(char *path);
+void			ft_magic(t_datas *datas);
 void			ft_signal(void);
 char			*ft_findexe(char **path, char *exe);
 char			*ft_check_path(char *path);
@@ -204,32 +206,40 @@ t_line			*ft_history_new(t_datas *datas);
 ** PARSER FUNCTIONS
 */
 
-int		implemented_function(t_datas *datas, char **cmd);
-int     get_write_file(char * file, int fd);
-int     ft_redir_left(t_cmds *tree);
-int     ft_redir_right(t_cmds *tree);
-int     exec_cmd(t_cmds *tree);
-int     exec_tree(t_cmds *tree);
-int     nb_semicolon(char **lex);
-int     len_cmd(char **lex);
-int     nb_item(char **lex, char *item);
-int     grand_father(int *p, t_cmds *tree, int pid);
-int     ft_pipe(t_cmds *tree);
-void    no_such_file(char *file);
-void    execution(t_cmds *tree);
-void    exec_trees(void);
-void	files_drredir(t_cmds *tree);
-void	files_rredir(t_cmds *tree);
-void    call_child(int *p, t_cmds *tree);
-void    call_father(int *p, t_cmds *tree);
-void    free_tree(t_cmds **tree);
-void    free_all_trees(t_cmds **cmds);
-void    go_to_up(t_cmds **cmds);
-void    add_token(char **arr, char *token);
-char    *get_file_content(int fd);
-char    **new_arr(int size);
-t_env	*get_env(void);
-t_cmds  *new_cmd(void);
-t_cmds	**parser(char **lex);
+int			parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex,\
+		t_cmds **cmds);
+int			parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds);
+int			parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds);
+int			parser_drredir(t_cmds **current_node, char **lex, t_cmds **cmds);
+int			implemented_function(t_datas *datas, char **cmd);
+int			get_write_file(char *file, int fd);
+int			ft_redir_left(t_cmds *tree);
+int			ft_redir_right(t_cmds *tree);
+int			exec_cmd(t_cmds *tree);
+int			exec_tree(t_cmds *tree);
+int			nb_semicolon(char **lex);
+int			len_cmd(char **lex);
+int			nb_item(char **lex, char *item);
+int			grand_father(int *p, t_cmds *tree, int pid);
+int			ft_pipe(t_cmds *tree);
+void		no_such_file(char *file);
+void		execution(t_cmds *tree);
+void		exec_trees(void);
+void		files_drredir(t_cmds *tree);
+void		files_rredir(t_cmds *tree);
+void		call_child(int *p, t_cmds *tree);
+void		call_father(int *p, t_cmds *tree);
+void		free_tree(t_cmds **tree);
+void		free_all_trees(t_cmds **cmds);
+void		go_to_up(t_cmds **cmds);
+void		replace_var(char **arr);
+void		add_token(char **arr, char *token);
+void		parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex);
+char		*get_file_content(int fd);
+char		*get_tmpdir(char *file, char *buf);
+char		**new_arr(int size);
+t_env		*get_env(void);
+t_cmds		*new_cmd(void);
+t_cmds		**parser(char **lex);
 
 #endif /* !__42SH_H__ */

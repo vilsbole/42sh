@@ -13,10 +13,9 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <libft.h>
-#include <42sh.h>
-#include <stdio.h>
 #include <fcntl.h>
+#include "libft.h"
+#include "42sh.h"
 
 void	execution(t_cmds *tree)
 {
