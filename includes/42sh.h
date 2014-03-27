@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 06:43:55 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:40:24 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@
 # define FLAG_TERM				(1)
 # define FLAG_COLOR				(2)
 # define FLAG_NOENV				(4)
+# define FLAG_ADVERT			(8)
 
 # define FLAG_ISTERM(fl)		((fl & FLAG_TERM) != 0)
 # define FLAG_ISCOLOR(fl)		((fl & FLAG_COLOR) != 0)
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
+# define FLAG_ISADVERT(fl)		((fl & FLAG_ADVERT) != 0)
 
 typedef struct		s_cmds
 {
@@ -137,6 +139,7 @@ int				ft_setvar(char ***aarr, char *key, char *val);
 int				ft_delvar(char **arr, char *key);
 int				ft_putpath(char **env, char *path, int nl);
 int				ft_check_daccess(char *path);
+void			ft_magic(t_datas *datas);
 void			ft_signal(void);
 char			*ft_findexe(char **path, char *exe);
 char			*ft_check_path(char *path);
