@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 19:09:11 by gchateau         ###   ########.fr        #
+#    Updated: 2014/03/27 19:25:56 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_setenv.c ft_unsetenv.c ft_exit.c ft_color.c ft_echo.c ft_set.c \
 		ft_unset.c ft_export.c \
 		ft_history.c \
-		ft_cmdsplit.c ft_cmdtrim.c ft_parse_vars.c \
+		ft_cmdsplit.c ft_cmdtrim.c \
 		ft_check_daccess.c ft_check_path.c \
 		ft_putpath.c ft_tputs.c ft_prompt_autocomplete.c \
 		ft_shell_start.c ft_shell_end.c ft_shell_reload.c \
@@ -53,7 +53,8 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_pipe.c \
 		parser.c parser2.c execution.c cmds.c t_env.c parser_utils.c \
 		ft_redir.c \
-		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c
+		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c \
+		parse_var.c
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)

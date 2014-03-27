@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:55:18 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:23:49 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int		exec_cmd(t_cmds *tree)
 {
 	pid_t	pid;
 	int		ret;
-
+	
+	parse_var(tree);
 	if (ft_redir_right(tree) || ft_redir_left(tree))
 		return (-1);
 	if (!tree->cmd || (tree->cmd && !tree->cmd[0]))
