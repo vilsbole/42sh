@@ -6,11 +6,20 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 23:12:47 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/27 06:20:05 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:19:04 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int			lx_exit(char **data, t_flags **flags)
+{
+	if (*flags)
+		free(*flags);
+	if (lx_endinput(data, *flags))
+		return (-1);
+	return (0);
+}
 
 int			lx_scanner(char *line, char **data)
 {
@@ -22,11 +31,9 @@ int			lx_scanner(char *line, char **data)
 	while (line[++i])
 	{
 		if (flags->quote == 0 && lx_count(BLANK, line[i]))
-		{
-			lx_closetok(data, flags);
-			i++;
-		}
-		if (flags->quote == 0 && (lx_tokopr(data, &line[i], flags) || line[i] == ';'))
+			i += lx_closetok(data, flags);
+		if (flags->quote == 0 && (lx_tokopr(data, &line[i], flags)
+								|| line[i] == ';'))
 			i++;
 		if (line[i] == '\\')
 			i += lx_backslash(data, &line[i], flags);
@@ -40,11 +47,7 @@ int			lx_scanner(char *line, char **data)
 		if (line[i] && flags->quote == 0 && lx_count(WORD, line[i]) == 0)
 			lx_addtoword(data, line[i], flags);
 	}
-	if (flags)
-		free(flags);
-	if (lx_endinput(data, flags))
-		return (-1);
-	return (0);
+	return (lx_exit(data, &flags));
 }
 
 char		**lx_lexer(char *line)
@@ -55,7 +58,7 @@ char		**lx_lexer(char *line)
 
 	i = 0;
 	if (!(data = ft_arrnew(512)))
-		ft_putendl("42sh : Oups, a malloc failed");
+		ft_putendl_fd("42sh : Oups, a malloc failed", 2);
 	ft_arrayset(data, 512);
 	if (lx_scanner(line, data))
 		ft_arrdel(&data);

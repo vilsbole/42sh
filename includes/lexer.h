@@ -6,7 +6,7 @@
 /*   By: evilsbol <evilsbol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 14:22:43 by evilsbol          #+#    #+#             */
-/*   Updated: 2014/03/27 06:48:44 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 18:43:02 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				lx_squote(char **data, char *str, t_flags *flags);
 int				lx_dquote(char **data, char *str, t_flags *flags);
 int				lx_endinput(char **data, t_flags *flags);
 void			lx_addtoword(char **data, char c, t_flags *flags);
-void			lx_closetok(char **data, t_flags *flags);
+int				lx_closetok(char **data, t_flags *flags);
 int				lx_tokopr(char **data, char *str, t_flags *flags);
 int				lx_count(char *str, char c);
 void			ft_arrayset(char **array, int size);
