@@ -6,7 +6,7 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 06:38:39 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/27 06:38:50 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 18:33:39 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int			lx_backslash(char **data, char *str, t_flags *flags)
 {
-	if (str[1] && lx_count(WORD, str[1]))
+	if (str[1] && str[1] == '$')
+	{
+		lx_addtoword(data, str[0], flags);
+		lx_addtoword(data, str[1], flags);
+		return (2);
+	}
+	else if (str[1] && lx_count(WORD, str[1]))
 	{
 		lx_addtoword(data, str[1], flags);
 		return (2);

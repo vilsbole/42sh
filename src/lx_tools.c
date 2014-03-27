@@ -6,7 +6,7 @@
 /*   By: evilsbol <evilsbol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 16:24:02 by evilsbol          #+#    #+#             */
-/*   Updated: 2014/03/27 06:36:46 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:18:32 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		ft_arrayset(char **array, int size)
 	while (size--)
 	{
 		if (!(array[size] = ft_strnew(1024)))
-			ft_putendl("42sh : Oups, a malloc failed");
+			ft_putendl_fd("42sh : Oups, a malloc failed", 2);
 	}
 }
 
