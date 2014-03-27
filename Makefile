@@ -6,11 +6,11 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 06:48:13 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/27 16:39:28 by gchateau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# MAKEFILE UI BY mmoustai
+# MAKEFILE UI BY gfanton
 
 NAME = 42sh
 
@@ -23,7 +23,7 @@ LIB = libs/libft/libft.a
 
 SRCPATH = ./src/
 
-FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
+FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_getterm.c ft_getdatas.c ft_getdatas_setenv.c ft_getdatas_setlocal.c \
 		ft_cd.c ft_cd_back.c ft_cd_check.c ft_cd_home.c ft_cd_path.c \
 		ft_cd_putpath.c \
