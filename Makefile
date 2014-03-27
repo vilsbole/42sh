@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 17:58:51 by kslimane         ###   ########.fr        #
+#    Updated: 2014/03/27 18:14:56 by gchateau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		implemented_function.c \
 		ft_getenv.c ft_getlocal.c ft_getvar.c ft_setvar.c ft_delvar.c \
 		ft_setenv.c ft_unsetenv.c ft_exit.c ft_color.c ft_echo.c ft_set.c \
-		ft_unset.c \
+		ft_unset.c ft_export \
 		ft_history.c \
 		ft_cmdsplit.c ft_cmdtrim.c ft_parse_vars.c \
 		ft_check_daccess.c ft_check_path.c \

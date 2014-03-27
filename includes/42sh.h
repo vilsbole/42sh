@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 16:40:24 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 18:11:50 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int				ft_unsetenv(t_datas *datas, char **cmd);
 int				ft_set(t_datas *datas, char **cmd);
 int				ft_unset(t_datas *datas, char **cmd);
 int				ft_color(t_datas *datas, char **cmd);
+int				ft_export(t_datas *datas, char **cmd);
 
 /*
 ** LINE EDITION FUNCTIONS
