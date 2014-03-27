@@ -16,7 +16,7 @@ NAME = 42sh
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -O0 -g3 #-pedantic
-CINCS = -I libs/libft/includes -I ./includes
+CINCS = -I libs/libft/includes -I./includes
 CLIBS = -L libs/libft/ -lft -ltermcap
 
 LIB = libs/libft/libft.a
@@ -57,8 +57,8 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c \
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
-FLAG = 0
 
+FLAG = 0
 V = 0
 SKIP_1 :=
 SKIP_0 := \033[A
@@ -84,21 +84,21 @@ coffee:
 	@echo "   ------------   "
 	@echo ""
 
-$(LIB):
-	@make -C libs/libft/
-
-$(NAME): $(OBJ) $(LIB)
+$(NAME): $(LIB) $(OBJ) 
 	@echo "$(U)$(C)[BUILD]\033[0;32m"
 	@$(CC) -o $@ $(OBJ) $(CFLAGS) $(CINCS) $(CLIBS)
 	@echo "$(SKIP)\033[2K$(SKIP)\033[2K"
 	@echo "$(SKIP)$(U)$(C)[BUILD  :\033[1;32m DONE$(C)]\033[0m"
 
-%.o: %.c includes
+%.o: %.c
 	@echo "$(U)$(C)[COMPILE: \033[1;31m$<\033[A\033[0m"
 	@echo "\033[0;32m"
 	@$(CC) -o $@ $(CFLAGS) $(CINCS) -c $<
-	@echo "\033[1;31m [.working.]"
+	@echo "\033[1;31m [.working.]]"
 	@echo "$(SKIP)\033[2K\033[A\033[2K$(SKIP)"
+
+$(LIB):
+	@make -C libs/libft/
 
 clean:
 	@echo "[\033[1;33mCLEANING 42SH\033[0m]"
