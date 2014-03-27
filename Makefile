@@ -6,7 +6,7 @@
 #    By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/26 21:32:32 by mfassi-f          #+#    #+#              #
-#    Updated: 2014/03/27 20:15:30 by mfassi-f         ###   ########.fr        #
+#    Updated: 2014/03/27 20:21:35 by mfassi-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,9 +69,9 @@ U = $(C)[$(NAME)]----->\033[0m
 
 .PHONY: all, clean, fclean, re, .msgcompile
 
-all: $(NAME)
+all: coffee $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
+coffee:
 	@echo ""
 	@echo "ENJOY A GOOD COFFEE WHILE COMPILING:"
 	@echo ""
@@ -84,6 +84,9 @@ $(NAME): $(LIB) $(OBJ)
 	@echo "    \        /--- "
 	@echo "   ------------   "
 	@echo ""
+
+$(NAME): $(LIB) $(OBJ)
+
 	@echo "$(U)$(C)[BUILD]\033[0;32m"
 	@$(CC) -o $@ $(OBJ) $(CFLAGS) $(CINCS) $(CLIBS)
 	@echo "$(SKIP)\033[2K$(SKIP)\033[2K"
