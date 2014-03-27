@@ -6,7 +6,7 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 23:12:47 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/27 19:19:04 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:55:31 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ int			lx_scanner(char *line, char **data)
 
 char		**lx_lexer(char *line)
 {
-	int		i;
 	char	**data;
 	char	**res;
 
-	i = 0;
 	if (!(data = ft_arrnew(512)))
 		ft_putendl_fd("42sh : Oups, a malloc failed", 2);
 	ft_arrayset(data, 512);
@@ -64,8 +62,6 @@ char		**lx_lexer(char *line)
 		ft_arrdel(&data);
 	if (data)
 	{
-		while (data[i] && data[i][0])
-			ft_putstr(data[i++]);
 		res = lx_arrdup(data);
 		ft_arrdel(&data);
 		return (res);
