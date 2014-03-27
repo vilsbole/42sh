@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/25 17:17:22 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/26 19:08:40 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:36:28 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ t_datas			*ft_getdatas(char **ep)
 		}
 		else
 			datas.flags |= FLAG_TERM;
+		get_env()->fd_in = dup(0);
+		get_env()->fd_out = dup(1);
+		get_env()->datas = &datas;
 		ptr = &datas;
 	}
 	return (ptr);
