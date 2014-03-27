@@ -6,11 +6,13 @@
 /*   By: kslimane <kslimane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 23:12:47 by kslimane          #+#    #+#             */
-/*   Updated: 2014/03/26 22:15:48 by kslimane         ###   ########.fr       */
+/*   Updated: 2014/03/27 02:30:23 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+#include <stdio.h> //
 
 void		ft_arrayset(char **array, int size)
 {
@@ -52,14 +54,18 @@ t_flags		*lx_set_flags(void)
 	return (flags);
 }
 
-void		lx_endinput(char **data, t_flags *flags)
+int			lx_endinput(char **data, t_flags *flags)
 {
-//	if (flags->quote)
-//		return (error_unclosed_quotes);
+	if (flags->quote)
+	{
+		ft_putendl("Input line has unclosed quotes");
+		return (-1);
+	}
 	if (flags->token)
 		lx_closetok(data, flags);
 	else
 		data[flags->index][0] = '\0';
+	return (0);
 }
 
 void		lx_addtoword(char **data, char c, t_flags *flags)
@@ -83,6 +89,7 @@ void		lx_addtoword(char **data, char c, t_flags *flags)
 int			lx_tokopr(char **data, char *str, t_flags *flags)
 {
 	int		shift;
+	char	*tmp;
 
 	shift = 0;
 	if (flags->quote == 0 && lx_count(OPR, str[0]))
@@ -90,8 +97,15 @@ int			lx_tokopr(char **data, char *str, t_flags *flags)
 		if (flags->token)
 			lx_closetok(data, flags);
 		shift = (str[1] == str[0] ? 2 : 1);
-		data[flags->index++] = ft_strsub(str, 0, shift);
+		tmp = ft_strsub(str, 0, shift);
+		free(data[flags->index]);
+		data[flags->index++] = tmp;
 		return (shift - 1);
+	}
+	else if (flags->quote && str[0] == ';')
+	{
+		lx_addtoword(data, str[0], flags);
+		return (1);
 	}
 	return (0);
 }
@@ -106,7 +120,6 @@ int			lx_flags(char c, t_flags *flags)
 			flags->quote = flags->quote == 2 ? 0 : 2;
 		else
 			flags->quote = 3;
-//		pr_printf("Sortie de lx_flags avec %d\n", flags->quote);
 		return (1);
 	}
 	return (0);
@@ -129,25 +142,21 @@ int			lx_dquote(char **data, char *str, t_flags *flags)
 	int		i;
 
 	i = 0;
-//	pr_printf("lx_dquote on char %c\n", *str);
+	ft_putendl("lx_dquote start");
 	while (str[i] && str[i] != '"')
 	{
-		if (str[i] != '\\' && str[i] != '$')
+		if (str[i] != '\\')
 			lx_addtoword(data, str[i], flags);
-		else if (str[i] == '$')
-		{
-			lx_addtoword(data, '\\', flags);
-			lx_addtoword(data, str[i], flags);
-		}
 		else if (str[i] == '\\' && str[i + 1])
 			lx_addtoword(data, str[++i], flags);
 		i++;
 	}
-	flags->quote = 0;
+	if (str[i] == '"')
+		flags->quote = 0;
 	return (i);
 }
 
-void		lx_scanner(char *line, char **data)
+int			lx_scanner(char *line, char **data)
 {
 	int			i;
 	t_flags		*flags;
@@ -161,59 +170,24 @@ void		lx_scanner(char *line, char **data)
 			lx_closetok(data, flags);
 			i++;
 		}
-		if (flags->quote == 0 && lx_tokopr(data, &line[i], flags))
+		if (flags->quote == 0 && (lx_tokopr(data, &line[i], flags) || line[i] == ';'))
 			i++;
-		i += lx_flags(line[i], flags);		/* A replacer ? */
-		if (flags->quote == 1)
-			i += lx_dquote(data, &line[i], flags);
+		i += lx_flags(line[i], flags);
 		if (flags->quote == 3)
 			i += lx_backslash(data, line[i], flags);
+		if (flags->quote == 1)
+			i += lx_dquote(data, &line[i], flags);
 		if (line[i] == '\n')
 			lx_closetok(data, flags);
-		if ((flags->quote == 0 && lx_count(WORD, line[i]) == 0) || flags->quote == 2)
-//			&& line[i])
+		if (((flags->quote == 0 && lx_count(WORD, line[i]) == 0)
+			|| flags->quote == 2) && line[i])
 			lx_addtoword(data, line[i], flags);
 	}
-	lx_endinput(data, flags);
+	if (lx_endinput(data, flags))
+		return (-1);
 	if (flags)
 		free(flags);
-}
-
-int			lx_arrsize(char **arr)
-{
-	int		i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr[i][0] != '\0')
-			i++;
-	}
-	return (i);
-}
-
-char		**lx_arrdup(char **arr)
-{
-	size_t	len;
-	size_t	i;
-	char	**new;
-
-	if (!arr)
-		return (NULL);
-	len = (size_t)lx_arrsize(arr);
-	new = ft_arrnew(len);
-	if (new == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		if (arr[i][0] == '\0')
-			new[i] = NULL;
-		else
-			new[i] = ft_strdup(arr[i]);
-		i++;
-	}
-	return (new);
+	return (0);
 }
 
 char		**lx_lexer(char *line)
@@ -226,10 +200,17 @@ char		**lx_lexer(char *line)
 	if (!(data = ft_arrnew(512)))
 		ft_putstr("data malloc failed\n");
 	ft_arrayset(data, 512);
-	lx_scanner(line, data);
-	while (data[i] && data[i][0])
-		ft_putstr(data[i++]);
-	res = lx_arrdup(data);
-	ft_arrdel(&data);
-	return (res);
+	if (lx_scanner(line, data))
+		ft_arrdel(&data);
+	if (data)
+	{
+		ft_putendl("Data is ok");
+		while (data[i] && data[i][0])
+			ft_putstr(data[i++]);
+		res = lx_arrdup(data);
+		ft_arrdel(&data);
+		return (res);
+	}
+	ft_putendl("Data is not ok");
+	return (NULL);
 }
