@@ -32,7 +32,7 @@ void	files_drredir(t_cmds *tree)
 		while (tree->drredir[i])
 		{
 			file_fd = open(tree->drredir[i], O_RDWR | O_CREAT | O_APPEND);
-			chmod(buf, S_IRWXU);
+			chmod(tree->drredir[i], S_IRWXU);
 			get_write_file(buf, file_fd);
 			close(file_fd);
 			i++;
@@ -56,7 +56,7 @@ void	files_rredir(t_cmds *tree)
 		while (tree->rredir[i])
 		{
 			file_fd = open(tree->rredir[i], O_RDWR | O_CREAT | O_TRUNC);
-			chmod(buf, S_IRWXU);
+			chmod(tree->rredir[i], S_IRWXU);
 			get_write_file(buf, file_fd);
 			close(file_fd);
 			i++;
