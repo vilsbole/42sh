@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 17:37:01 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 19:38:49 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 20:06:51 by kslimane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_export(t_datas *datas, char **cmd)
 		return (-1);
 	if (cmd[1] == NULL)
 	{
-		ft_error(FTSH_NAME, "export", "missing argument.", NULL);
+		ft_error(FTSH_NAME, "missing argument.", NULL);
 		ft_error("usage", "export [KEY] (optional [VALUE])", NULL);
 		return (1);
 	}
