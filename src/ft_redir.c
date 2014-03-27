@@ -26,6 +26,7 @@ char	*get_file_content(int fd)
 	char	*tmp;
 	char	*line;
 
+	line = NULL;
 	if (fd < 0)
 		return (NULL);
 	buf = ft_strnew(2048);
@@ -102,6 +103,7 @@ int		ft_redir_right(t_cmds *tree)
 {
 	int		fd;
 	char	buf[MAXPATHLEN];
+	char	*content;
 
 	if ((!tree->rredir || (tree->rredir && !tree->rredir[0]))
 		&& (!tree->drredir || (tree->drredir && !tree->drredir[0])))
@@ -113,7 +115,14 @@ int		ft_redir_right(t_cmds *tree)
 		return (-1);
 	}
 	chmod(buf, S_IRWXU);
-	dup2(fd, 1);
+	if (!tree->cmd || (tree->cmd && !tree->cmd[0]))
+	{
+		content = get_file_content(get_env()->fd_in);
+		write(fd, content, ft_strlen(content));
+		free(content);
+	}
+	else
+		dup2(fd, 1);
 	close(fd);
 	return (0);
 }

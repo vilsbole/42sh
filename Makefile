@@ -33,7 +33,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		implemented_function.c \
 		ft_getenv.c ft_getlocal.c ft_getvar.c ft_setvar.c ft_delvar.c \
 		ft_setenv.c ft_unsetenv.c ft_exit.c ft_color.c ft_echo.c ft_set.c \
-		ft_unset.c ft_export \
+		ft_unset.c ft_export.c \
 		ft_history.c \
 		ft_cmdsplit.c ft_cmdtrim.c ft_parse_vars.c \
 		ft_check_daccess.c ft_check_path.c \
@@ -53,7 +53,7 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_pipe.c \
 		parser.c parser2.c execution.c cmds.c t_env.c parser_utils.c \
 		ft_redir.c \
-		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c
+		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c\
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
