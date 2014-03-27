@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 12:08:15 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:56:48 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:30:23 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <libft.h>
 #include <42sh.h>
 
-int     nb_semicolon(char **lex)
+int		nb_semicolon(char **lex)
 {
-	int nb;
+	int	nb;
 
 	nb = 2;
 	while (lex && *lex)
@@ -28,9 +28,9 @@ int     nb_semicolon(char **lex)
 	return (nb);
 }
 
-int     len_cmd(char **lex)
+int		len_cmd(char **lex)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (*lex)
@@ -44,9 +44,9 @@ int     len_cmd(char **lex)
 	return (i);
 }
 
-int     nb_item(char **lex, char *item)
+int		nb_item(char **lex, char *item)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*lex)
@@ -58,14 +58,14 @@ int     nb_item(char **lex, char *item)
 	return (i);
 }
 
-void    add_token(char **arr, char *token)
+void	add_token(char **arr, char *token)
 {
 	arr[ft_arrsize(arr)] = ft_strdup(token);
 }
 
-char    **new_arr(int size)
+char	**new_arr(int size)
 {
-	char    **arr;
+	char	**arr;
 
 	arr = (char **)malloc((size) * sizeof(char *));
 	if (arr == NULL)

@@ -6,11 +6,9 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:16:13 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:06:34 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:35:57 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -21,12 +19,12 @@
 #include <libft.h>
 #include <42sh.h>
 
-char    *get_file_content(int fd)
+char	*get_file_content(int fd)
 {
-	char        *buf;
-	int         ret;
-	char        *tmp;
-	char        *line;
+	char	*buf;
+	int		ret;
+	char	*tmp;
+	char	*line;
 
 	if (fd < 0)
 		return (NULL);
@@ -43,13 +41,13 @@ char    *get_file_content(int fd)
 	return (line);
 }
 
-void    no_such_file(char *file)
+void	no_such_file(char *file)
 {
 	ft_putstr_fd("42sh: no such file or directory :", 2);
 	ft_putendl_fd(file, 2);
 }
 
-int     get_write_file(char *file, int fd)
+int		get_write_file(char *file, int fd)
 {
 	int		file_fd;
 	char	*content;
@@ -71,21 +69,10 @@ int     get_write_file(char *file, int fd)
 	return (0);
 }
 
-char	*get_tmpdir(char *file, char *buf)
+int		ft_redir_left(t_cmds *tree)
 {
+	int		i;
 	int		fd;
-
-	fd = open("/tmp", O_RDONLY);
-	fcntl(fd, F_GETPATH, buf);
-	close (fd);
-	ft_strcat(buf, file);
-	return (buf);
-}
-
-int ft_redir_left(t_cmds *tree)
-{
-	int     i;
-	int     fd;
 	char	buf[MAXPATHLEN];
 
 	if (!tree->lredir || !tree->lredir[0])
@@ -95,9 +82,9 @@ int ft_redir_left(t_cmds *tree)
 	if (!tree->cmd || (tree->cmd && !tree->cmd[0])
 		|| (tree->father && tree->father->type != PIPE))
 		fd = 1;
-	else if ((fd = open(buf, O_RDWR | O_CREAT | O_TRUNC)) == -1 && chmod(buf, S_IRWXU))
+	else if ((fd = open(buf, O_RDWR | O_CREAT | O_TRUNC)) == -1
+			&& chmod(buf, S_IRWXU))
 		return (ft_error(FTSH_NAME, "open failed.", NULL));
-	printf("je suis  a gauche\n");
 	while (tree->lredir[i])
 		if (get_write_file(tree->lredir[i++], fd))
 			return (-1);
@@ -111,16 +98,15 @@ int ft_redir_left(t_cmds *tree)
 	return (0);
 }
 
-int ft_redir_right(t_cmds *tree)
+int		ft_redir_right(t_cmds *tree)
 {
-	int 	fd;
+	int		fd;
 	char	buf[MAXPATHLEN];
 
 	if ((!tree->rredir || (tree->rredir && !tree->rredir[0]))
 		&& (!tree->drredir || (tree->drredir && !tree->drredir[0])))
 		return (0);
 	fd = open(get_tmpdir(TMP_FILE_R, buf), O_RDWR | O_TRUNC | O_CREAT);
-	printf("je suis  a droite\n");
 	if (fd == -1)
 	{
 		ft_putstr_fd("42sh: open failed.\n", 2);

@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 01:08:38 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:41:10 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex,
 	return (0);
 }
 
-int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds)
+int		parser_and(t_cmds **currnod, int *is_new_cmd, char **lex, t_cmds **cmds)
 {
-	(*current_node)->right = new_cmd();
-	(*current_node)->right->father = (*current_node);
-	(*current_node)->right->flag = AND;
-	(*current_node) = (*current_node)->right;
+	(*currnod)->right = new_cmd();
+	(*currnod)->right->father = (*currnod);
+	(*currnod)->right->flag = AND;
+	(*currnod) = (*currnod)->right;
 	*is_new_cmd = TRUE;
 	if (!*(lex + 1) || !ft_strcmp(*(lex + 1), "&&")
 			|| !ft_strcmp(*(lex + 1), "||") || !ft_strcmp(*(lex + 1), "|")
@@ -50,7 +50,7 @@ int		parser_and(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmd
 	return (0);
 }
 
-void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node, 
+void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node,
 						int *is_new_cmds, int *is_new_cmd)
 {
 	if (*is_new_cmds)
@@ -63,22 +63,10 @@ void	parser_new_cmds(t_cmds ***current_tree, t_cmds **current_node,
 	}
 }
 
-void	parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex)
-{
-	if (*is_new_cmd)
-	{
-		(*current_node)->cmd = new_arr(len_cmd(lex));
-		(*current_node)->rredir = new_arr((nb_item(lex, ">")) + 1);
-		(*current_node)->lredir = new_arr((nb_item(lex, "<")) + 1);
-		(*current_node)->drredir = new_arr((nb_item(lex, ">>")) + 1);
-		*is_new_cmd = FALSE;
-	}
-}
-
 int		parser_process(t_cmds **current_node, int *is_new, char ***lex,
 						t_cmds **cmds)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	parser_new_cmd(current_node, &is_new[1], *lex);
@@ -106,10 +94,10 @@ int		parser_process(t_cmds **current_node, int *is_new, char ***lex,
 
 t_cmds	**parser(char **lex)
 {
-	t_cmds  **cmds;
-	int     is_new[2];
-	t_cmds  **current_tree;
-	t_cmds  *current_node;
+	t_cmds	**cmds;
+	int		is_new[2];
+	t_cmds	**current_tree;
+	t_cmds	*current_node;
 
 	if (!lex)
 		return (NULL);

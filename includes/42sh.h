@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 06:10:39 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 06:43:55 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define FLAG_ISCOLOR(fl)		((fl & FLAG_COLOR) != 0)
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
 
-typedef struct      s_cmds
+typedef struct		s_cmds
 {
 	int				type;
 	int				flag;
@@ -123,7 +123,6 @@ typedef struct		s_env
 typedef int			(t_fblt) (t_datas *, char **);
 
 typedef int			(t_fkey) (t_datas *, t_line *, char *);
-
 
 /*
 ** SHELL UTILITY FUNCTIONS
@@ -204,12 +203,13 @@ t_line			*ft_history_new(t_datas *datas);
 ** PARSER FUNCTIONS
 */
 
-int			parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex, t_cmds **cmds);
+int			parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex,\
+		t_cmds **cmds);
 int			parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds);
 int			parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds);
 int			parser_drredir(t_cmds **current_node, char **lex, t_cmds **cmds);
 int			implemented_function(t_datas *datas, char **cmd);
-int			get_write_file(char * file, int fd);
+int			get_write_file(char *file, int fd);
 int			ft_redir_left(t_cmds *tree);
 int			ft_redir_right(t_cmds *tree);
 int			exec_cmd(t_cmds *tree);
@@ -231,11 +231,12 @@ void		free_all_trees(t_cmds **cmds);
 void		go_to_up(t_cmds **cmds);
 void		replace_var(char **arr);
 void		add_token(char **arr, char *token);
+void		parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex);
 char		*get_file_content(int fd);
 char		*get_tmpdir(char *file, char *buf);
 char		**new_arr(int size);
 t_env		*get_env(void);
-t_cmds  	*new_cmd(void);
+t_cmds		*new_cmd(void);
 t_cmds		**parser(char **lex);
 
 #endif /* !__42SH_H__ */

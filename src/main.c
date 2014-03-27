@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/25 00:22:40 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 05:21:57 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	ft_parser_load(t_datas *datas)
 	char		**tmp;
 
 	tmp = lx_lexer(datas->prompt.buffer);
+	replace_var(tmp);
 	get_env()->cmds = parser(tmp);
 	ft_arrdel(&tmp);
 	if (!get_env()->cmds)
