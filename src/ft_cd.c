@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 20:29:39 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 17:18:26 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 20:36:33 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,47 +70,36 @@ static int	ft_cd_get_opts(char **cmd, char *opts)
 	return (i);
 }
 
-static int	ft_cd2(char *opts, char *str, char *new, char *old)
+static void	ft_cd_cpy(char *cwd, char *new, char *str)
 {
-	t_datas		*datas;
-
-	datas = ft_getdatas(NULL);
-	if (datas == NULL)
-		return (ft_error(FTSH_NAME, "cd", "internal error."));
-	if (ft_cd_check(new) != 0)
-		return (1);
-	if ((str != NULL && ft_strcmp(str, "-") == 0)
-		|| ft_strichr(opts, 'l') >= 0 || ft_strichr(opts, 'n') >= 0
-		|| ft_strichr(opts, 'p') >= 0 || ft_strichr(opts, 'v') >= 0)
-		ft_cd_putpath(datas, opts, new);
-	return (ft_cd_update(datas, opts, new, old));
+	ft_strcpy(new, cwd);
+	ft_strcat(new, "/");
+	ft_strcat(new, str);
 }
 
 int			ft_cd(t_datas *datas, char **cmd)
 {
 	int			i;
-	int			res;
 	char		new[MAXPATHLEN];
-	char		cwd[MAXPATHLEN];
 	char		opts[FTSH_BLT_MAXOPTS + 1];
 
 	if (ft_strcmp(cmd[0], "cd") != 0)
 		return (-1);
 	ft_bzero(new, MAXPATHLEN);
-	ft_bzero(cwd, MAXPATHLEN);
 	ft_bzero(opts, FTSH_BLT_MAXOPTS + 1);
-	if (getcwd(cwd, MAXPATHLEN) == NULL)
-		return (ft_error("cd", "can not get current working directory.", NULL));
 	i = ft_cd_get_opts(cmd, opts);
 	if (i == -1 || ft_cd_usage(cmd, i) != 0)
 		return (1);
-	if (cmd[i] == NULL || ft_strichr(cmd[i], '~') == 0)
-		res = ft_cd_home(datas, new, cmd[i], cwd);
+	if (cmd[i] == NULL)
+		ft_strcpy(new, ft_getenv(datas->local, "HOME"));
 	else if (ft_strcmp(cmd[i], "-") == 0)
-		res = ft_cd_back(datas, new);
+		ft_strcpy(new, ft_getenv(datas->local, "OWD"));
 	else
-		res = ft_cd_path(new, cmd[i], cwd);
-	if (res != 0)
-		return (res);
-	return (ft_cd2(opts, cmd[i], new, cwd));
+	{
+		if (ft_strichr(cmd[i], '/') != 0)
+			ft_cd_cpy(ft_getenv(datas->local, "CWD"), new, cmd[i]);
+		else
+			ft_strcpy(new, cmd[i]);
+	}
+	return (ft_cd_set(datas, opts, cmd[i], new));
 }
