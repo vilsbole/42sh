@@ -23,16 +23,15 @@ LIB = libs/libft/libft.a
 
 SRCPATH = ./src/
 
-FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
+FILES = main.c \
+		ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_getterm.c ft_getdatas.c ft_getdatas_setenv.c ft_getdatas_setlocal.c \
 		ft_cd.c ft_cd_set.c ft_cd_check.c ft_cd_putpath.c ft_cd_update.c \
 		ft_env.c ft_env_exec.c ft_env_exit.c ft_env_setav.c ft_env_setep.c \
-		ft_env_print.c \
-		implemented_function.c \
+		ft_env_print.c ft_redir.c \
 		ft_getenv.c ft_getlocal.c ft_getvar.c ft_setvar.c ft_delvar.c \
 		ft_setenv.c ft_unsetenv.c ft_exit.c ft_color.c ft_echo.c ft_set.c \
 		ft_unset.c ft_export.c \
-		ft_history.c \
 		ft_cmdsplit.c ft_cmdtrim.c \
 		ft_check_daccess.c ft_check_path.c \
 		ft_putpath.c ft_tputs.c ft_prompt_autocomplete.c \
@@ -46,13 +45,12 @@ FILES = main.c ft_findexe.c ft_error.c ft_signal.c ft_response.c ft_magic.c \
 		ft_move_left.c ft_move_right.c ft_move_up.c ft_move_down.c \
 		ft_move_home.c ft_move_end.c ft_move_prev.c ft_move_next.c \
 		ft_history_add.c ft_history_del.c ft_history_prepare.c \
-		ft_history_new.c \
-		ft_history_prev.c ft_history_next.c \
-		ft_pipe.c \
-		parser.c parser2.c execution.c cmds.c t_env.c parser_utils.c \
-		ft_redir.c \
-		lx_lexer.c lx_tools.c lx_quote.c lx_token.c files_redir.c utils.c \
-		parse_var.c
+		ft_history_new.c ft_history.c \
+		ft_history_prev.c ft_history_next.c ft_pipe.c \
+		lx_lexer.c lx_tools.c lx_quote.c lx_token.c \
+		pr_tree1.c pr_tree2.c pr_utils.c pr_var.c \
+		sh_execution.c sh_cmds.c sh_env.c sh_implemented_function.c \
+		sh_files_redir.c sh_utils.c
 
 SRC = $(addprefix $(SRCPATH), $(FILES))
 OBJ = $(SRC:.c=.o)
