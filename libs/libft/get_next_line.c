@@ -12,8 +12,8 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <libft.h>
-#include <get_next_line.h>
+#include "libft.h"
+#include "get_next_line.h"
 
 static int		ft_gnl_setline(char **buffer, char **line)
 {

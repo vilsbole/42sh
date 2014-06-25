@@ -66,9 +66,10 @@
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
 # define FLAG_ISADVERT(fl)		((fl & FLAG_ADVERT) != 0)
 
+# include <termios.h>
 # include "ftsh_struct.h"
 # include "parser.h"
-# include <termios.h>
+
 
 int				ft_error(char *cmd, char *msg, char *arg);
 int				ft_shell_start(t_datas *datas);
