@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftenv.h>
 
 int		ft_env_setav(t_bltenv *env, char **cmd, int i)

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int		ft_move_end(t_datas *datas, t_line *line, char *str)
 {

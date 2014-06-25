@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int		ft_check_daccess(char *path)
 {

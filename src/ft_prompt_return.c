@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 char	*ft_prompt_return(t_datas *datas, t_line *line)
 {

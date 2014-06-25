@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:16:13 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:35:57 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:12 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 char	*get_file_content(int fd)
 {
@@ -53,10 +53,9 @@ int		get_write_file(char *file, int fd)
 	int		file_fd;
 	char	*content;
 
-	if ((file_fd = open(file, O_RDONLY)) == -1)
+	if (check_open(file) || (file_fd = open(file, O_RDONLY)) == -1)
 	{
 		close(fd);
-		no_such_file(file);
 		return (-1);
 	}
 	content = get_file_content(file_fd);

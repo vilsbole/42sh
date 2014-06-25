@@ -6,12 +6,12 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 16:21:40 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:41:10 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:17 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex,
 				t_cmds **cmds)

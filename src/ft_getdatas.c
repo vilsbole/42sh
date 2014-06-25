@@ -13,7 +13,7 @@
 #include <term.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void		ft_getdatas_init2(t_datas *datas, char **ep)
 {

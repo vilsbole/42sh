@@ -12,7 +12,7 @@
 
 #include <sys/wait.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int		ft_response(t_datas *datas)
 {

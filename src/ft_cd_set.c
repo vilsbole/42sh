@@ -12,7 +12,7 @@
 
 #include <sys/param.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftcd.h>
 
 int		ft_cd_set(t_datas *datas, char *opts, char *str, char *new)

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getlocal.c                                      :+:      :+:    :+:   */
+/*   ftenv_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/26 23:36:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/01/29 05:52:14 by gchateau         ###   ########.fr       */
+/*   Created: 2014/03/27 22:07:00 by gchateau          #+#    #+#             */
+/*   Updated: 2014/03/27 22:07:32 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <ftsh.h>
+#ifndef FTENV_STRUCT_H
+# define FTENV_STRUCT_H
 
-char	*ft_getlocal(char **locals, char *key)
+typedef struct	s_bltenv
 {
-	return (ft_getenv(locals, key));
-}
+	char		*opts;
+	char		*exe;
+	char		**av;
+	char		**ep;
+}				t_bltenv;
+
+#endif

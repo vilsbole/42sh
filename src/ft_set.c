@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int		ft_set_print(t_datas *datas)
 {

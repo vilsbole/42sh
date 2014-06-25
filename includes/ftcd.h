@@ -6,7 +6,7 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 20:12:58 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:06:06 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,4 @@ int		ft_cd_set(t_datas *datas, char *opts, char *str, char *new);
 int		ft_cd_update(t_datas *datas, char *opts, char *path, char *cwd);
 void	ft_cd_putpath(t_datas *datas, char *opts, char *path);
 
-#endif /* !FTCD_H */
+#endif

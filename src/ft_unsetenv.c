@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int	ft_unsetenv_usage(char **cmd)
 {

@@ -14,7 +14,7 @@
 #include <term.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int	ft_magic_init(t_datas *datas)
 {

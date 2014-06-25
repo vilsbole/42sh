@@ -14,7 +14,7 @@
 #include <signal.h>
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_signal_resize(int sig)
 {

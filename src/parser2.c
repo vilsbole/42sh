@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ftsh.h"
 #include "libft.h"
 
 int		parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex,

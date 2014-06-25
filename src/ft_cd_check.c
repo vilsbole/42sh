@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftcd.h>
 
 int		ft_cd_check(char *path)

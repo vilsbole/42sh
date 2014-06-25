@@ -12,7 +12,7 @@
 
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_prompt_delchar_bwd(t_datas *datas, t_line *line)
 {

@@ -6,16 +6,15 @@
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 18:10:17 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/23 18:01:04 by gchateau         ###   ########.fr       */
+/*   Updated: 2014/03/27 21:35:35 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <sys/param.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_prompt_path(t_datas *datas, int plen)
 {
@@ -51,8 +50,6 @@ static void	ft_prompt_display(t_datas *datas)
 
 char		*ft_prompt(t_datas *datas, int entry)
 {
-	dprintf(datas->debug, "\n%sdatas->status:\t%i%s\n", FTSH_HGREEN, WEXITSTATUS(datas->status), FTSH_COLOR_RESET);
-	dprintf(datas->debug, "%sresponse:\t%s\n%s", FTSH_HRED, ft_getenv(datas->local, "?"), FTSH_COLOR_RESET);
 	if (!FLAG_ISTERM(datas->flags))
 		datas->flags &= ~FLAG_COLOR;
 	if (datas->status != 2)

@@ -6,13 +6,13 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:52:39 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/26 20:29:46 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:08:20 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 t_cmds	*new_cmd(void)
 {

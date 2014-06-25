@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 void	ft_history_del(t_line **aline)
 {

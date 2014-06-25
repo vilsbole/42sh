@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42sh.h                                             :+:      :+:    :+:   */
+/*   ftsh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/20 19:28:15 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/27 19:26:33 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:35:30 by gchateau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __42SH_H__
-# define __42SH_H__
-# define FTSH_NAME				("ftsh")
+#ifndef FTSH_H
+# define FTSH_H
+# define FTSH_NAME				("42sh")
 # define FTSH_DEFAULT_PATH		("/bin:/usr/bin")
 # define FTSH_MAXLEN_LINE		(1024)
 # define FTSH_PROMPT			("-$> ")
@@ -66,69 +66,9 @@
 # define FLAG_ISNOENV(fl)		((fl & FLAG_NOENV) != 0)
 # define FLAG_ISADVERT(fl)		((fl & FLAG_ADVERT) != 0)
 
-typedef struct		s_cmds
-{
-	int				type;
-	int				flag;
-	char			*cmd_path;
-	char			**cmd;
-	char			**rredir;
-	char			**drredir;
-	char			**lredir;
-	struct s_cmds	*right;
-	struct s_cmds	*left;
-	struct s_cmds	*father;
-}					t_cmds;
-
-typedef struct		s_line
-{
-	int				i;
-	int				x;
-	int				y;
-	int				len;
-	int				plen;
-	char			buf[FTSH_MAXLEN_LINE];
-	struct s_line	*prev;
-	struct s_line	*next;
-}					t_line;
-
-typedef struct		s_prompt
-{
-	int				plen;
-	char			buffer[FTSH_MAXLEN_LINE];
-	t_line			*line;
-	t_line			*history;
-}					t_prompt;
-
-typedef struct		s_datas
-{
-	int				cols;
-	int				rows;
-	int				status;
-	char			**env;
-	char			**path;
-	char			**local;
-	t_prompt		prompt;
-	unsigned char	flags;
-	int				debug;
-}					t_datas;
-
-typedef struct		s_env
-{
-	int				fd_in;
-	int				fd_out;
-	char			**envp;
-	t_cmds			**cmds;
-	t_datas			*datas;
-}					t_env;
-
-typedef int			(t_fblt) (t_datas *, char **);
-
-typedef int			(t_fkey) (t_datas *, t_line *, char *);
-
-/*
-** SHELL UTILITY FUNCTIONS
-*/
+# include "ftsh_struct.h"
+# include "parser.h"
+# include <termios.h>
 
 int				ft_error(char *cmd, char *msg, char *arg);
 int				ft_shell_start(t_datas *datas);
@@ -139,25 +79,6 @@ int				ft_setvar(char ***aarr, char *key, char *val);
 int				ft_delvar(char **arr, char *key);
 int				ft_putpath(char **env, char *path, int nl);
 int				ft_check_daccess(char *path);
-void			ft_magic(t_datas *datas);
-void			ft_signal(void);
-char			*ft_findexe(char **path, char *exe);
-char			*ft_check_path(char *path);
-char			*ft_parse_vars(t_datas *datas, char **str);
-char			*ft_getenv(char **env, char *key);
-char			*ft_getlocal(char **locals, char *key);
-char			*ft_getvar(t_datas *datas, char *key);
-char			*ft_cmdtrim(char *s);
-char			**ft_cmdsplit(char *s);
-char			**ft_getdatas_setlocal(char **ep);
-char			**ft_getdatas_setenv(char **ep, char **local);
-t_datas			*ft_getdatas(char **ep);
-struct termios	*ft_getterm(t_datas *datas);
-
-/*
-** BUILTINS FUNCTIONS
-*/
-
 int				ft_echo(t_datas *datas, char **cmd);
 int				ft_history(t_datas *datas, char **cmd);
 int				ft_exit(t_datas *datas, int code);
@@ -169,11 +90,6 @@ int				ft_set(t_datas *datas, char **cmd);
 int				ft_unset(t_datas *datas, char **cmd);
 int				ft_color(t_datas *datas, char **cmd);
 int				ft_export(t_datas *datas, char **cmd);
-
-/*
-** LINE EDITION FUNCTIONS
-*/
-
 int				ft_tputs(char *s);
 int				ft_prompt_nl(t_datas *datas, t_line *line);
 int				ft_prompt_ctrld(t_datas *datas, t_line *line, char *str);
@@ -193,6 +109,18 @@ char			*ft_prompt(t_datas *datas, int entry);
 char			*ft_prompt_readentry(t_datas *datas);
 char			*ft_prompt_readkey(t_datas *datas);
 char			*ft_prompt_return(t_datas *datas, t_line *line);
+char			*ft_findexe(char **path, char *exe);
+char			*ft_check_path(char *path);
+char			*ft_parse_vars(t_datas *datas, char **str);
+char			*ft_getenv(char **env, char *key);
+char			*ft_getlocal(char **locals, char *key);
+char			*ft_getvar(t_datas *datas, char *key);
+char			*ft_cmdtrim(char *s);
+char			**ft_cmdsplit(char *s);
+char			**ft_getdatas_setlocal(char **ep);
+char			**ft_getdatas_setenv(char **ep, char **local);
+void			ft_magic(t_datas *datas);
+void			ft_signal(void);
 void			ft_prompt_clear(t_datas *datas, t_line *line);
 void			ft_prompt_print(t_datas *datas, t_line *line);
 void			ft_prompt_reprint(t_datas *datas, t_line *line, int dc);
@@ -202,45 +130,7 @@ void			ft_history_del(t_line **aline);
 void			ft_history_add(t_datas *datas, t_line *line);
 t_line			*ft_history_prepare(t_datas *datas);
 t_line			*ft_history_new(t_datas *datas);
+t_datas			*ft_getdatas(char **ep);
+struct termios	*ft_getterm(t_datas *datas);
 
-/*
-** PARSER FUNCTIONS
-*/
-
-int			parser_pipe(t_cmds **current_node, int *is_new_cmd, char **lex,\
-		t_cmds **cmds);
-int			parser_lredir(t_cmds **current_node, char **lex, t_cmds **cmds);
-int			parser_rredir(t_cmds **current_node, char **lex, t_cmds **cmds);
-int			parser_drredir(t_cmds **current_node, char **lex, t_cmds **cmds);
-int			implemented_function(t_datas *datas, char **cmd);
-int			get_write_file(char *file, int fd);
-int			ft_redir_left(t_cmds *tree);
-int			ft_redir_right(t_cmds *tree);
-int			exec_cmd(t_cmds *tree);
-int			exec_tree(t_cmds *tree);
-int			nb_semicolon(char **lex);
-int			len_cmd(char **lex);
-int			nb_item(char **lex, char *item);
-int			grand_father(int *p, t_cmds *tree, int pid);
-int			ft_pipe(t_cmds *tree);
-void		no_such_file(char *file);
-void		execution(t_cmds *tree);
-void		exec_trees(void);
-void		files_drredir(t_cmds *tree);
-void		files_rredir(t_cmds *tree);
-void		call_child(int *p, t_cmds *tree);
-void		call_father(int *p, t_cmds *tree);
-void		free_tree(t_cmds **tree);
-void		free_all_trees(t_cmds **cmds);
-void		go_to_up(t_cmds **cmds);
-void		parse_var(t_cmds *cmds);
-void		add_token(char **arr, char *token);
-void		parser_new_cmd(t_cmds **current_node, int *is_new_cmd, char **lex);
-char		*get_file_content(int fd);
-char		*get_tmpdir(char *file, char *buf);
-char		**new_arr(int size);
-t_env		*get_env(void);
-t_cmds		*new_cmd(void);
-t_cmds		**parser(char **lex);
-
-#endif /* !__42SH_H__ */
+#endif

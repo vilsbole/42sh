@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 t_line	*ft_history_new(t_datas *datas)
 {

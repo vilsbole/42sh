@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 char		*ft_prompt_readentry(t_datas *datas)
 {

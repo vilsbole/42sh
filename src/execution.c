@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:24:22 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 19:23:49 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:05 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft.h"
-#include "42sh.h"
+#include "ftsh.h"
 
 void	execution(t_cmds *tree)
 {
@@ -38,7 +38,7 @@ int		exec_cmd(t_cmds *tree)
 {
 	pid_t	pid;
 	int		ret;
-	
+
 	parse_var(tree);
 	if (ft_redir_right(tree) || ft_redir_left(tree))
 		return (-1);
@@ -58,8 +58,6 @@ int		exec_cmd(t_cmds *tree)
 		waitpid(pid, &(get_env()->datas->status), 0);
 		ft_response(get_env()->datas);
 	}
-	if (ret == -1)
-		exit(0);
 	return (0);
 }
 

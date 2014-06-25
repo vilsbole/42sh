@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <libft.h>
 #include <get_next_line.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_check_path_loop(char **arr, char *new)
 {

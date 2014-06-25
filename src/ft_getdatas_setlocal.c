@@ -13,7 +13,7 @@
 #include <sys/param.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static char		**ft_getdatas_setlocal2(char **ep, char **arr)
 {

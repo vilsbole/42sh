@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_prompt_addchar_nl(t_datas *datas, t_line *line)
 {

@@ -6,13 +6,13 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 12:08:15 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:30:23 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:19 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int		nb_semicolon(char **lex)
 {

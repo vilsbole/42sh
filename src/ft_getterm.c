@@ -13,7 +13,7 @@
 #include <termios.h>
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 struct termios		*ft_getterm(t_datas *datas)
 {

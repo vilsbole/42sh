@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static char	**ft_getdatas_setenv_fill(char ***aarr, char **local)
 {

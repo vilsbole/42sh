@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftenv.h>
 
 static int	ft_env_setep_count(char **cmd, int i)

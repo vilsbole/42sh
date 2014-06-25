@@ -12,7 +12,7 @@
 
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int			ft_shell_end(t_datas *datas)
 {

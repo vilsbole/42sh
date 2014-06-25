@@ -13,7 +13,7 @@
 #include <sys/param.h>
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftcd.h>
 
 static int	ft_cd_usage(char **cmd, int i)

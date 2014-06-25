@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int	ft_putpath_gethome(char *buf, char *home, char *path)
 {

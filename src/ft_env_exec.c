@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <ftenv.h>
 
 int		ft_env_exec(t_datas *datas, t_bltenv *env)

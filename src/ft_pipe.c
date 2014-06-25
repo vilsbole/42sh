@@ -6,7 +6,7 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 11:28:10 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 20:20:42 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:14 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 void	call_child(int *p, t_cmds *tree)
 {
@@ -29,8 +29,6 @@ void	call_child(int *p, t_cmds *tree)
 	if (ret == 0)
 		execution(tree);
 	if (ret == 1)
-		exit(0);
-	if (ret == -1)
 		exit(0);
 }
 

@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int		ft_findexe_start(char *exe)
 {

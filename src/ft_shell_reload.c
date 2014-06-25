@@ -12,7 +12,7 @@
 
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int	ft_putnoterm(t_datas *datas)
 {

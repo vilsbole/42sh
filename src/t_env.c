@@ -6,12 +6,12 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 06:26:39 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:32:03 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:19 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static t_env	*new_env(void)
 {

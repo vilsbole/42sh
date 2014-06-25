@@ -13,7 +13,7 @@
 #include <termios.h>
 #include <term.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static int	ft_putwelcome(t_datas *datas)
 {

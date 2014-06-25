@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*      parse_var.c                                     :+:      :+:    :+:   */
+/*   parse_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/27 04:53:14 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 19:21:24 by mfassi-f         ###   ########.fr       */
+/*   Created: 2014/03/27 21:56:41 by mfassi-f          #+#    #+#             */
+/*   Updated: 2014/03/27 22:10:17 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <stdio.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <stdlib.h>
-
 
 char	*replace_tild(char *str)
 {
@@ -73,7 +71,7 @@ void	replace_var(char **arr)
 	int		i;
 	int		j;
 	char	*tmp;
-	
+
 	i = 0;
 	while (arr[i])
 	{

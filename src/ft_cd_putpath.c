@@ -12,7 +12,7 @@
 
 #include <sys/param.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static void	ft_cd_putpath_wrap(t_datas *datas, char *opts, char *path)
 {

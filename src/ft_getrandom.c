@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 char	*ft_getrandom(char *buf, int len)
 {

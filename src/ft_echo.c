@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 static size_t	ft_echo_strlen(char **cmd, size_t start, int nl)
 {

@@ -6,13 +6,13 @@
 /*   By: mfassi-f <mfassi-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 20:51:36 by mfassi-f          #+#    #+#             */
-/*   Updated: 2014/03/27 06:13:09 by mfassi-f         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:10:10 by mfassi-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include <42sh.h>
+#include <ftsh.h>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/stat.h>

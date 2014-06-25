@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <42sh.h>
+#include <ftsh.h>
 
 int			ft_cd_update(t_datas *datas, char *opts, char *path, char *cwd)
 {
