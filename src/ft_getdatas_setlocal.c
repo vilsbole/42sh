@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getdatas_setlocal.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjacques <yjacques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/01/25 17:17:22 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/17 17:43:08 by gchateau         ###   ########.fr       */
+/*   Created: 2014/06/25 15:13:26 by yjacques          #+#    #+#             */
+/*   Updated: 2014/06/25 15:13:27 by yjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt_autocomplete.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchateau <gchateau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yjacques <yjacques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/20 16:22:23 by gchateau          #+#    #+#             */
-/*   Updated: 2014/03/24 16:52:51 by gchateau         ###   ########.fr       */
+/*   Created: 2014/06/25 15:15:47 by yjacques          #+#    #+#             */
+/*   Updated: 2014/06/25 15:15:49 by yjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
