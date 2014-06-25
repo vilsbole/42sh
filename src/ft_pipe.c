@@ -44,7 +44,8 @@ void	call_father(int *p, t_cmds *tree)
 int		grand_father(int *p, t_cmds *tree, int pid)
 {
 	wait(&pid);
-	if (tree->right && tree->right->cmd && !ft_strcmp(tree->right->cmd[0], "exit"))
+	if (tree->right && tree->right->cmd && \
+		!ft_strcmp(tree->right->cmd[0], "exit"))
 		ft_exit(get_env()->datas, ft_atoi(tree->right->cmd[1]));
 	pid = fork();
 	if (pid == -1)

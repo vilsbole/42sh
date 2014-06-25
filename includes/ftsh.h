@@ -70,7 +70,6 @@
 # include "ftsh_struct.h"
 # include "parser.h"
 
-
 int				ft_error(char *cmd, char *msg, char *arg);
 int				ft_shell_start(t_datas *datas);
 int				ft_shell_reload(t_datas *datas);
