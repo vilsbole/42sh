@@ -32,7 +32,8 @@ int		parser_or(t_cmds **current_node, int *is_new_cmd, char **lex,
 	return (0);
 }
 
-int		parser_and(t_cmds **currnod, int *is_new_cmd, char **lex, t_cmds **cmds)
+int		parser_and(t_cmds **currnod, int *is_new_cmd, char **lex, \
+	t_cmds **cmds)
 {
 	(*currnod)->right = new_cmd();
 	(*currnod)->right->father = (*currnod);
